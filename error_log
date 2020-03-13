@@ -1,0 +1,38 @@
+[05-Mar-2020 09:34:38 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/traveldocs/public_html/wp-content/themes/Total/header.php:15) in /home/traveldocs/public_html/wp-includes/pluggable.php on line 1265
+[05-Mar-2020 09:34:38 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/traveldocs/public_html/wp-content/themes/Total/header.php:15) in /home/traveldocs/public_html/wp-includes/pluggable.php on line 1268
+[05-Mar-2020 09:34:43 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/traveldocs/public_html/wp-content/themes/Total/header.php:15) in /home/traveldocs/public_html/wp-includes/pluggable.php on line 1265
+[05-Mar-2020 09:34:43 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/traveldocs/public_html/wp-content/themes/Total/header.php:15) in /home/traveldocs/public_html/wp-includes/pluggable.php on line 1268
+[05-Mar-2020 09:36:10 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/traveldocs/public_html/wp-content/themes/Total/header.php:15) in /home/traveldocs/public_html/wp-includes/pluggable.php on line 1265
+[05-Mar-2020 09:36:10 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/traveldocs/public_html/wp-content/themes/Total/header.php:15) in /home/traveldocs/public_html/wp-includes/pluggable.php on line 1268
+[05-Mar-2020 09:37:31 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/traveldocs/public_html/wp-content/themes/Total/header.php:15) in /home/traveldocs/public_html/wp-includes/pluggable.php on line 1265
+[05-Mar-2020 09:37:31 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/traveldocs/public_html/wp-content/themes/Total/header.php:15) in /home/traveldocs/public_html/wp-includes/pluggable.php on line 1268
+[05-Mar-2020 09:37:39 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/traveldocs/public_html/wp-content/themes/Total/header.php:15) in /home/traveldocs/public_html/wp-includes/pluggable.php on line 1265
+[05-Mar-2020 09:37:39 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/traveldocs/public_html/wp-content/themes/Total/header.php:15) in /home/traveldocs/public_html/wp-includes/pluggable.php on line 1268
+[05-Mar-2020 09:38:59 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/traveldocs/public_html/wp-content/themes/Total/header.php:15) in /home/traveldocs/public_html/wp-includes/pluggable.php on line 1265
+[05-Mar-2020 09:38:59 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/traveldocs/public_html/wp-content/themes/Total/header.php:15) in /home/traveldocs/public_html/wp-includes/pluggable.php on line 1268
+[05-Mar-2020 09:39:57 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/traveldocs/public_html/wp-content/themes/Total/header.php:15) in /home/traveldocs/public_html/wp-includes/pluggable.php on line 1265
+[05-Mar-2020 09:39:57 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/traveldocs/public_html/wp-content/themes/Total/header.php:15) in /home/traveldocs/public_html/wp-includes/pluggable.php on line 1268
+[05-Mar-2020 09:41:33 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/traveldocs/public_html/wp-content/themes/Total/header.php:15) in /home/traveldocs/public_html/wp-includes/pluggable.php on line 1265
+[05-Mar-2020 09:41:33 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/traveldocs/public_html/wp-content/themes/Total/header.php:15) in /home/traveldocs/public_html/wp-includes/pluggable.php on line 1268
+[05-Mar-2020 09:41:49 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/traveldocs/public_html/wp-content/themes/Total/header.php:15) in /home/traveldocs/public_html/wp-includes/pluggable.php on line 1265
+[05-Mar-2020 09:41:49 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/traveldocs/public_html/wp-content/themes/Total/header.php:15) in /home/traveldocs/public_html/wp-includes/pluggable.php on line 1268
+[05-Mar-2020 09:42:56 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/traveldocs/public_html/wp-content/themes/Total/header.php:15) in /home/traveldocs/public_html/wp-includes/pluggable.php on line 1265
+[05-Mar-2020 09:42:56 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/traveldocs/public_html/wp-content/themes/Total/header.php:15) in /home/traveldocs/public_html/wp-includes/pluggable.php on line 1268
+[05-Mar-2020 09:43:34 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/traveldocs/public_html/wp-content/themes/Total/header.php:15) in /home/traveldocs/public_html/wp-includes/pluggable.php on line 1265
+[05-Mar-2020 09:43:34 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/traveldocs/public_html/wp-content/themes/Total/header.php:15) in /home/traveldocs/public_html/wp-includes/pluggable.php on line 1268
+[05-Mar-2020 09:43:43 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/traveldocs/public_html/wp-content/themes/Total/header.php:15) in /home/traveldocs/public_html/wp-includes/pluggable.php on line 1265
+[05-Mar-2020 09:43:43 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/traveldocs/public_html/wp-content/themes/Total/header.php:15) in /home/traveldocs/public_html/wp-includes/pluggable.php on line 1268
+[05-Mar-2020 12:41:28 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function matlas() in /home/traveldocs/public_html/wp-content/themes/visa_visum/page_template/m-dashboard.php:39
+Stack trace:
+#0 /home/traveldocs/public_html/wp-includes/template-loader.php(98): include()
+#1 /home/traveldocs/public_html/wp-blog-header.php(19): require_once('/home/traveldoc...')
+#2 /home/traveldocs/public_html/index.php(17): require('/home/traveldoc...')
+#3 {main}
+  thrown in /home/traveldocs/public_html/wp-content/themes/visa_visum/page_template/m-dashboard.php on line 39
+[05-Mar-2020 12:44:13 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function matlas() in /home/traveldocs/public_html/wp-content/themes/visa_visum/page_template/m-dashboard.php:40
+Stack trace:
+#0 /home/traveldocs/public_html/wp-includes/template-loader.php(98): include()
+#1 /home/traveldocs/public_html/wp-blog-header.php(19): require_once('/home/traveldoc...')
+#2 /home/traveldocs/public_html/index.php(17): require('/home/traveldoc...')
+#3 {main}
+  thrown in /home/traveldocs/public_html/wp-content/themes/visa_visum/page_template/m-dashboard.php on line 40
