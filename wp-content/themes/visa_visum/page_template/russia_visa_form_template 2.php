@@ -12,7 +12,7 @@ $formSubmit = '';
 $cntTraveller = 1;
 $cntIntended = 1;
 $cntplaces = 1;
-$redirectURL = 'http://traveldocs.developstaging.com/thank-you/';
+$redirectURL = '/thank-you/';
 $isError = false;
 if (isset($_GET['purpose']) && $_GET['purpose'] != '') {
 	$visa_purpose = $_GET['purpose'];
@@ -150,7 +150,7 @@ get_header();
 								<?php
 									if(!empty(get_list_countries())){
 										foreach(get_list_countries() as $country){?>
-										<option value="<?php echo $country->name;?>" <?php echo 'Netherlands' == $country->name ? 'selected' : ''; ?>><?php echo $country->name;?></option>
+										<option <?php echo 'Netherlands' == $country->name ? 'selected' : ''; ?>><?php echo $country->name;?></option>
 									<?php } } ?>
 							</select>
 						</div>
@@ -661,7 +661,7 @@ get_header();
 													<?php
 													if(!empty(get_list_countries())){
 														foreach(get_list_countries() as $country){?>
-															<option value="<?php echo $country->country_code;?>" <?php echo (isset($_POST['traverler']['immigration_country'][$j]) == $country->country_code) ? 'selected' : ''; ?>><?php echo $country->name;?></option>
+															<option <?php echo (isset($_POST['traverler']['immigration_country'][$j]) == $country->name) ? 'selected' : ''; ?>><?php echo $country->name;?></option>
 													<?php } } ?>
 												</select>
 											</div>
@@ -745,7 +745,7 @@ get_header();
 												<?php
 												if(!empty(get_list_countries())){
 													foreach(get_list_countries() as $country){?>
-														<option value="<?php echo $country->country_code;?>" <?php echo (isset($_POST['traverler']['afgifteland_passport'][$j]) == $country->country_code) ? 'selected' : ''; ?>><?php echo $country->name;?></option>
+														<option <?php echo (isset($_POST['traverler']['afgifteland_passport'][$j]) == $country->name) ? 'selected' : ''; ?>><?php echo $country->name;?></option>
 												<?php } } ?>
 											</select>
 										</div>
@@ -820,7 +820,7 @@ get_header();
 										<label for="traverler_employer_<?php echo $j; ?>" class="vc_col-md-3 col-form-label"><?php echo __( 'Employer', 'visachild' ); ?></label>
 										<div class="vc_col-md-9">
 											<select name="traverler[employer][]" id="traverler_employer">
-												<option value="" <?php echo (isset($_POST['traverler']['employer'][$j]) == '') ? 'selected' : ''; ?>></option><option value="no" <?php echo (isset($_POST['traverler']['employer'][$j]) == 'no') ? 'selected' : ''; ?>>No</option>
+												<option value="no" <?php echo (isset($_POST['traverler']['employer'][$j]) == 'no') ? 'selected' : ''; ?>>No</option>
 												<option value="yes" <?php echo (isset($_POST['traverler']['employer'][$j]) == 'yes') ? 'selected' : ''; ?>>Yes</option>
 											</select>
 										</div>
@@ -862,7 +862,7 @@ get_header();
 													<?php
 													if(!empty(get_list_countries())){
 														foreach(get_list_countries() as $country){?>
-															<option value="<?php echo $country->country_code;?>" <?php echo (isset($_POST['traverler']['employer_country_9_to_30'][$j]) == $country->country_code) ? 'selected' : ''; ?>><?php echo $country->name;?></option>
+															<option <?php echo (isset($_POST['traverler']['employer_country_9_to_30'][$j]) == $country->name) ? 'selected' : ''; ?>><?php echo $country->name;?></option>
 													<?php } } ?>
 												</select>
 											</div>
@@ -1140,62 +1140,53 @@ get_header();
 				if ($('#purpose').val() == 'Tourism') {
 					$('#duration').html('<p><b>Duration: </b> 1 t/m 8 days</p>');
 					$('#price').html('<p><b>Price: </b> € 39.95</p>');
-
-					$('.duration-9-30').addClass('hidden');
-					$('.duration-1-8').removeClass('hidden');
 				}
 				if ($('#purpose').val() == 'Business'){
 					$('#duration').html('<p><b>Duration: </b> 1 t/m 8 days</p>');
 					$('#price').html('<p><b>Price: </b> € 39.95</p>');
 				}
+				$('.duration-1-8').addClass('hidden');
+				$('duration-9-30').removeClass('hidden');
 			}
 			if ($('#duration_option').val() ==  '9 t/m 30 days'){
 				if ($('#purpose').val() == 'Tourism') {
 					$('#duration').html('<p><b>Duration: </b> 9 t/m 30 days</p>');
-					$('#price').html('<p><b>Price: </b> € 104.95</p>');
-
-					$('.duration-1-8').addClass('hidden');
-					$('.duration-9-30').removeClass('hidden');
+					$('#price').html('<p><b>Price: </b> € 104.95</p>');				
 				}
 				if ($('#purpose').val() == 'Business'){
 					$('#duration').html('<p><b>Duration: </b> 9 t/m 30 days</p>');
 					$('#price').html('<p><b>Price: </b> € 104.95</p>');
 				}
+				$('.duration-1-8').addClass('hidden');
+				$('.duration-9-30').removeClass('hidden');
 			}
 		});
 
 		$(document).on('change','#traverler_alt_name',function(event) {
-			console.log('change');
 			$(this).parent().parent().siblings('.alternative_name_info').toggleClass('hidden');
 		});
 
 		$(document).on('change','#traverler_study',function(event) {
-			console.log('change');
 			$(this).parent().parent().siblings('.job-info').toggleClass('hidden');
 		});
 
 		$(document).on('change','#traverler_employer',function(event) {
-			console.log('change');
 			$(this).parent().parent().siblings('.employer-info').toggleClass('hidden');
 		});
 
 		$(document).on('change','#traverler_family_member',function(event) {
-			console.log('change');
 			$(this).parent().parent().siblings('.family_info').toggleClass('hidden');
 		});
 
 		$(document).on('change','#traverler_russia_visit',function(event) {
-			console.log('change');
 			$(this).parent().parent().siblings('.previous_visit_info').toggleClass('hidden');
 		});
 
 		$(document).on('change','#traverler_russian_nationality',function(event) {
-			console.log('change');
 			$(this).parent().parent().siblings('.nationality_info').toggleClass('hidden');
 		});
 
 		$(document).on('change','#traverler_born_in_russia',function(event) {
-			console.log('change');
 			$(this).parent().parent().siblings('.born_russia_info').toggleClass('hidden');
 		});
 
