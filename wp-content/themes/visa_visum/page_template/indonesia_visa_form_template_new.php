@@ -10,7 +10,7 @@
 $indonesia_nonce = wp_create_nonce('indonesia_form_nonce');
 $formSubmit = '';
 $cntTraveller = 1;
-$redirectURL = 'http://traveldocs.developstaging.com/thank-you/';
+$redirectURL = '/thank-you/';
 $isError = false;
 if (isset($_GET['purpose']) && $_GET['purpose'] != '') {
 	$visa_purpose = ucfirst($_GET['purpose']);
@@ -141,6 +141,7 @@ get_header();
 								<span class="validate_error"><?php echo isset($phoneErr) ? $phoneErr : ''; ?></span>
 							</div>
 						</div><!-- form-group -->
+
 					</div>
 					<div id="visa_adres-information" class="form_seprationSection">
 						<h3><?php echo __( 'Address', 'visachild' ); ?></h3>
@@ -250,6 +251,13 @@ get_header();
 								<input type="text" class="form-control" value="<?php echo isset($residence_phone_no) ? $residence_phone_no : ''; ?>" name="residence_phone_no" id="residence_phone_no"  placeholder="+316123456789">
 							</div>
 						</div>
+						<div class="form-group row">
+							<label for="point_of_entry" class="vc_col-md-3 col-form-label"><?php echo __( 'Point of entry in Indonesia', 'visachild' ); ?></label>
+							<div class="vc_col-md-9">
+								<input type="phone" class="form-control" value="<?php echo isset($telephone) ? $telephone : ''; ?>" name="residence_point_of_entry" id="point_of_entry" placeholder="E.g. Jakarta">
+								<span class="validate_error"><?php echo isset($pointOfEntryErr) ? $pointOfEntryErr : ''; ?></span>
+							</div>
+						</div><!-- form-group -->
 
 						<h3><?php echo __( 'Shipping Method', 'visachild' ); ?></h3>
 						<p><?php echo __( 'Select the way in which you want to send the passport to us (shipping method) and how you want to receive the passport (return method).', 'visachild' ); ?></p>
@@ -257,8 +265,8 @@ get_header();
 							<label for="shipping_method" class="vc_col-md-3 col-form-label"><?php echo __( 'Shipping Method', 'visachild' ); ?></label>
 							<div class="vc_col-md-9">
 								<select name="shipping_method" id="shipping_method">
-								    <option value="" <?php echo (isset($shipping_method) == '') ? 'selected' : ''; ?> data-price='0'>Select Send Method ...
-								    </option>
+									<option value="" <?php echo (isset($shipping_method) == '') ? 'selected' : ''; ?> data-price='0'>Select Send Method ...
+									</option>
 									<option value="OC12"<?php echo (isset($shipping_method) == 'OC12') ? 'selected' : ''; ?> data-price='44.95'>Courier next business day before 12:00 (€ 44.95)</option>
 									<option value="OC17"<?php echo (isset($shipping_method) == 'OC17') ? 'selected' : ''; ?> data-price='34.95'>Courier next business day before 5:00 PM (€ 34.95)</option>
 									<option value="DROPOFF"<?php echo (isset($shipping_method) == 'DROPOFF') ? 'selected' : ''; ?>data-price='0'>Deliver yourself in Rotterdam</option>
@@ -271,14 +279,14 @@ get_header();
 							<label for="return_method" class="vc_col-md-3 col-form-label"><?php echo __( 'Return Method', 'visachild' ); ?></label>
 							<div class="vc_col-md-9">
 								<select name="return_method" id="return_method">
-								    <option value="" <?php echo (isset($Return_method) == '') ? 'selected' : ''; ?> data-price='0'>Select Return Method ...</option>
-								    <option value="AVIA" <?php echo (isset($Return_method) == 'AVIA') ? 'selected' : ''; ?> data-price='69.95'>Avia partner desk (€ 69.95)</option>
-								    <option value="REGISTERED_MAIL" <?php echo (isset($Return_method) == 'REGISTERED_MAIL') ? 'selected' : ''; ?> data-price='18.15'>Warranty post 2 working days (€ 18.15)
-								    </option>
-								    <option value="OC12" <?php echo (isset($Return_method) == 'OC12') ? 'selected' : ''; ?> data-price='44.95'>Courier next business day before 12:00 (€ 44.95)</option>
-								    <option value="OC17" <?php echo (isset($Return_method) == 'OC17') ? 'selected' : ''; ?> data-price='34.95'>Courier next business day before 5:00 PM (€ 34.95)
-								    </option>
-								    <option value="PICKUP" <?php echo (isset($Return_method) == 'PICKUP') ? 'selected' : ''; ?> data-price='0'>Pick up yourself in Rotterdam</option>
+									<option value="" <?php echo (isset($Return_method) == '') ? 'selected' : ''; ?> data-price='0'>Select Return Method ...</option>
+									<option value="AVIA" <?php echo (isset($Return_method) == 'AVIA') ? 'selected' : ''; ?> data-price='69.95'>Avia partner desk (€ 69.95)</option>
+									<option value="REGISTERED_MAIL" <?php echo (isset($Return_method) == 'REGISTERED_MAIL') ? 'selected' : ''; ?> data-price='18.15'>Warranty post 2 working days (€ 18.15)
+									</option>
+									<option value="OC12" <?php echo (isset($Return_method) == 'OC12') ? 'selected' : ''; ?> data-price='44.95'>Courier next business day before 12:00 (€ 44.95)</option>
+									<option value="OC17" <?php echo (isset($Return_method) == 'OC17') ? 'selected' : ''; ?> data-price='34.95'>Courier next business day before 5:00 PM (€ 34.95)
+									</option>
+									<option value="PICKUP" <?php echo (isset($Return_method) == 'PICKUP') ? 'selected' : ''; ?> data-price='0'>Pick up yourself in Rotterdam</option>
 								</select>
 								<span class="validate_error"><?php echo isset($ReturnErr) ? $ReturnErr : ''; ?></span>
 							</div>
@@ -473,6 +481,30 @@ get_header();
 
 									</div>
 								</div>
+								<div id="sponsor_info_section" class="form_seprationSection business hidden">
+									<h3><?php echo __( 'Sponsor / Reference', 'visachild' ); ?></h3>
+									<div class="work-info">
+										<div class="form-group row">
+											<label for="sponsor_person_name_<?php echo $j; ?>" class="vc_col-md-3 col-form-label"><?php echo __( 'Name of sponsor/reference person' ); ?></label>
+											<div class="vc_col-md-9">
+												<input type="text" value="<?php echo isset($_POST['traverler']['sponsor_person_name'][$j]) ? $_POST['traverler']['sponsor_person_name'][$j] : ''; ?>" class="form-control" name="traverler[sponsor_person_name][]" id="sponsor_person_name_<?php echo $j; ?>">
+											</div>
+										</div><!-- form-group -->
+										<div class="form-group row">
+											<label for="sponsor_address_<?php echo $j; ?>" class="vc_col-md-3 col-form-label"><?php echo __( 'Address of sponsor/reference', 'visachild' ); ?></label>
+											<div class="vc_col-md-9">
+												<input type="text" value="<?php echo isset($_POST['traverler']['sponsor_address'][$j]) ? $_POST['traverler']['sponsor_address'][$j] : ''; ?>" class="form-control" name="traverler[sponsor_address][]" id="sponsor_address_<?php echo $j; ?>">
+											</div>
+										</div><!-- form-group -->
+										<div class="form-group row">
+											<label for="sponsor_phone_<?php echo $j; ?>" class="vc_col-md-3 col-form-label"><?php echo __( 'Telephone number', 'visachild' ); ?></label>
+											<div class="vc_col-md-9">
+												<input type="text" value="<?php echo isset($_POST['traverler']['sponsor_phone'][$j]) ? $_POST['traverler']['sponsor_phone'][$j] : ''; ?>" class="form-control" name="traverler[sponsor_phone][]" id="sponsor_phone__<?php echo $j; ?>"  placeholder="+316123456789">
+											</div>
+										</div><!-- form-group -->
+
+									</div>
+								</div>
 
 							</div> <!-- traveler_info -->
 
@@ -538,7 +570,6 @@ get_header();
 				$('#duration_option').val('maximum 60 days');
 				$('.duration-31-60').hide();
 				$('#visa_modal').modal('show');
-
 			}
 			else {
 				$('#visum').html('<p><b>Visum: </b> Indonesia Tourism</p>');
@@ -579,7 +610,7 @@ get_header();
 				$('.tourism_duration').hide();
 				$('#duration_option').val('maximum 60 days');
 				$('#visa_modal').modal('show');
-
+				$('.business.hidden').removeClass('hidden');
 			}
 			else {
 				newselectedValue = "Tourism";

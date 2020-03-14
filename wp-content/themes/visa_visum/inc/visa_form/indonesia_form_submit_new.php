@@ -21,6 +21,7 @@ function indonesia_form_submit_new($postData) {
 		'return_date' => $postData['return_date'],
 		'residence_street_name_house_no' => $postData['residence_street_name_house_no'],
 		'residence_phone_no' => $postData['residence_phone_no'],
+		'residence_point_of_entry' => $postData['residence_point_of_entry'],
 		'shipping_method' => $postData['shipping_method'],
 		'return_method' => $postData['return_method'],
 	);
@@ -28,13 +29,12 @@ function indonesia_form_submit_new($postData) {
 	$indonesia_form_insert_id = $wpdb->insert_id;
 	if ($indonesia_form_insert_id) {
 		if(is_array($postData['traverler'])) {
-			$cntTraveller = count($_POST['traverler']['nationality']);
+			$cntTraveller = count($postData['traverler']['nationality']);
 			for ($j = 0; $j < $cntTraveller; $j++) {
 				$traveral_data = array(
 					'indonesia_form_id' => $indonesia_form_insert_id,
 					'nationality' => $postData['traverler']['nationality'][$j],
 					'full_name' => $postData['traverler']['full_name'][$j],
-					//'surname' => $postData['traverler']['surname'][$j],
 					'gender' => $postData['traverler']['gender'][$j],
 					'marital_status' => $postData['traverler']['marital_status'][$j],
 					'place_of_birth' => $postData['traverler']['place_of_birth'][$j],
@@ -49,6 +49,9 @@ function indonesia_form_submit_new($postData) {
 					'employer_zipcode' => $postData['traverler']['employer_zipcode'][$j],
 					'employer_place' => $postData['traverler']['employer_place'][$j],
 					'employer_phone' => $postData['traverler']['employer_phone'][$j],
+					'sponsor_person_name' => $postData['traverler']['sponsor_person_name'][$j],
+					'sponsor_address' => $postData['traverler']['sponsor_address'][$j],
+					'sponsor_phone' => $postData['traverler']['sponsor_phone'][$j]
 				);
 				$wpdb->insert( $traveral_db, $traveral_data );
 			}
@@ -56,5 +59,6 @@ function indonesia_form_submit_new($postData) {
 		$wpdb->flush();
 		return true;
 	}
+	exit(0);
 }
 ?>
