@@ -546,7 +546,7 @@ get_header();
 						<label for="invitation_letter" class="checkboxLabeled">
 							<input type="checkbox" name="invitation_letter" id="invitation_letter" style="display: inline-block;width: auto;height: auto;" value="Yes" class="visuallyhidden" <?php isset($invitation_letter) ? 'checked': ''; ?>>
 							<!-- <span class="fa fa-check check-mark"></span> -->
-							<span class="text"><?php echo __( 'Invitation Letter', 'visachild' ); ?></span>
+							<?php echo __( 'Invitation Letter', 'visachild' ); ?>
 						</label>
 					</div>
 					<div id="visa_travel_details-information" class="form_seprationSection">
@@ -1271,8 +1271,7 @@ get_header();
 			shipping_method = $('#shipping_method'). children("option:selected").data('price');
 			// return_method = $('#return_method'). children("option:selected").data('price');
 			price = parseFloat(old_price) + invitation_letter + parseFloat(shipping_method);
-
-			$('#price').html('price.toFixed(2)');
+			$('#price').html(price.toFixed(2));
 		}
 	});
 </script>
