@@ -394,6 +394,20 @@ get_header();
 									<div class="vc_col-md-9">
 										<select name="traverler[nationality_at_birth][]" id="traverler_natioinality_at_birth_<?php echo $j; ?>">
 											<option value="" <?php echo (isset($_POST['traverler']['nationality_at_birth'][$j]) == '') ? 'selected' : ''; ?>>Select Nationality at Birth</option>
+											<option value="BE">Belgium</option>
+											<option value="DK">Denmark</option>
+											<option value="DE">Germany</option>
+											<option value="FI">Finland</option>
+											<option value="FR">France</option>
+											<option value="NL">The Netherlands</option>
+											<option value="NO">Norway</option>
+											<option value="AT">Austria</option>
+											<option value="SK">Slovakia</option>
+											<option value="ES">Spain</option>
+											<option value="GB">United Kingdom</option>
+											<option value="US">United States</option>
+											<option value="SE">Sweden</option>
+											<option value="---" disabled="">--------------------------------------------</option>
 											<?php
 											if(!empty(get_list_countries())){
 												foreach(get_list_countries() as $country){?>
@@ -498,8 +512,6 @@ get_header();
 							</div> <!-- traveler_info -->
 
 						<?php } ?>
-
-
 						<div class="add_travelers-section" id="add_travelers-section">
 							<span id="add_traverl_info_button" class="btn btn-full-width btn-primary" data-total="<?php echo $cntTraveller; ?>">
 								<i class="fa fa-user-plus" aria-hidden="true"></i>  Add a traveler
@@ -507,7 +519,7 @@ get_header();
 						</div> <!-- add_travelers-section -->
 					</div> <!-- visa_travel_details-information -->
 
-					<div id="visa_form_submit_section" class="visa_form_submit_section form_seprationSection">
+					<div id="visa_form_submit_section" class="visa_form_submit_section form_seprationSection text-right">
 						<button type="submit" class="btn btn-conv" data-nonce="<?php echo $thailand_nonce; ?>">
 							<span>Apply for visas</span><i class="fa fa-angle-right" aria-hidden="true"></i>
 						</button>

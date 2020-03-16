@@ -518,7 +518,7 @@ get_header();
 						</div> <!-- add_travelers-section -->
 					</div> <!-- visa_travel_details-information -->
 
-					<div id="visa_form_submit_section" class="visa_form_submit_section form_seprationSection">
+					<div id="visa_form_submit_section" class="visa_form_submit_section form_seprationSection text-right">
 						<button type="submit" class="btn btn-conv" data-nonce="<?php echo $indonesia_nonce; ?>">
 							<span>Apply for visas</span><i class="fa fa-angle-right" aria-hidden="true"></i>
 						</button>
