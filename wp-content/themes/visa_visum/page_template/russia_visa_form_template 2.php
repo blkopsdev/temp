@@ -22,11 +22,12 @@ if(!empty($_POST)) {
 		$_POST['invitation_letter'] = '';
 		$cntTraveller = count($_POST['traverler']['nationality']);
 
+		$target_dir_passport_data = ABSPATH."wp-content/uploads/Russia/passport_data/";
+
+		$target_dir_passport_photo = ABSPATH."wp-content/uploads/Russia/passport_photo/";
+
 		for ($j = 0; $j < $cntTraveller; $j++) {
 
-			$target_dir_passport_data = ABSPATH."wp-content/uploads/Russia/passport_data/";
-
-			$target_dir_passport_photo = ABSPATH."wp-content/uploads/Russia/passport_photo/";
 
 			$target_file_passport_data = $target_dir_passport_data . basename($_FILES['traverler']['name']['passport_data'][$j]);
 
@@ -76,6 +77,8 @@ if(!empty($_POST)) {
 				$passport_data_new_name = $target_dir_passport_data .basename($_POST['traverler']['first_name'][$j]).basename($_POST['traverler']['document_number'][$j]).'.'.$passport_data_file_name[1];
 
 				$passport_photo_new_name = $target_dir_passport_photo.basename($_POST['traverler']['first_name'][$j]).basename($_POST['traverler']['document_number'][$j]).'.'.$passport_data_file_name[1];
+				$passport_data_new_name = str_replace(' ', '_', $passport_data_new_name);
+				$passport_photo_new_name = str_replace(' ', '_', $passport_photo_new_name);
 
 				if (move_uploaded_file($_FILES['traverler']['tmp_name']['passport_data'][$j], $passport_data_new_name)) {
 					$_POST['traverler']['passport_data'][$j] =  get_home_url() .'/wp-content/uploads/Russia/passport_data/'.basename($_POST['traverler']['first_name'][$j].basename($_POST['traverler']['document_number'][$j]).'.'.$passport_data_file_name[1]);
@@ -102,6 +105,20 @@ if(!empty($_POST)) {
 	$formSubmit = russia_form_submit_new($_POST);
 	wp_redirect( $redirectURL );
 }
+$entries = [
+	'single-entry' => [
+		'label' => 'Single Entry',
+		'price' => 163.35
+	],
+	'double-entry' => [
+		'label' => 'Single or Double Entry',
+		'price' => 211.75
+	],
+	'multiple-entry' => [
+		'label' => 'Multiple Entry',
+		'price' => 230.65
+	]
+];
 get_header();
 ?>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -117,17 +134,17 @@ get_header();
 	<!-- Matlas -->
 	<div class="row">
 		<div class="col-md-12" style="margin-bottom: 40px !important;">
-	        <ul class="process-steps process-2 clearfix">
-	            <li class=" active">
-	                <a href="#" class="i-bordered i-circled divcenter"><i class="fa fa-wpforms" aria-hidden="true"></i></a>
-	                <h5>1. Gegevens invullen</h5>
-	            </li>
-	            <li class="">
-	                <a href="javascript:jQuery('#order-form').submit(); return false;" class="i-bordered i-circled divcenter"><i class="fa fa-check" aria-hidden="true"></i></a>
-	                <h5>2. Controle en betaling</h5>
-	            </li>
-	        </ul>
-	    </div>
+				<ul class="process-steps process-2 clearfix">
+						<li class=" active">
+							<a href="#" class="i-bordered i-circled divcenter"><i class="fa fa-wpforms" aria-hidden="true"></i></a>
+								<h5>1. Gegevens invullen</h5>
+						</li>
+						<li class="">
+								<a href="javascript:jQuery('#order-form').submit(); return false;" class="i-bordered i-circled divcenter"><i class="fa fa-check" aria-hidden="true"></i></a>
+								<h5>2. Controle en betaling</h5>
+						</li>
+				</ul>
+		</div>
 	</div>
 	<!-- Matlas -->
 	<div class="row backgrouddark">
@@ -187,17 +204,32 @@ get_header();
 						<label for="duration" class="vc_col-md-3 col-form-label"><?php echo __( 'Duration', 'visachild' ); ?></label>
 						<div class="vc_col-md-9">
 							<select name="duration" id="duration_option">
-								<option value="1 t/m 8 days" <?php echo (isset($duration) == '1 t/m 8 days') ? 'selected' : ''; ?>><?php echo __('1 t/m 8 days', 'visachild') ?></option>
+								<option value="1 t/m 8 days" <?php echo (isset($duration) == '1 t/m 8 days') ? 'selected' : ''; ?>><?php echo __('1 t/m 8 days', 'visachild') ?> (e-visum) </option>
 								<option value="9 t/m 30 days" <?php echo (isset($duration) == '9 t/m 30 days') ? 'selected' : ''; ?>><?php echo __('9 t/m 30 days', 'visachild') ?></option>
 							</select>
 							<p><?php echo __( 'If you have a different destination, select 9 to 30 days alongside', 'visachild' ); ?></p>
 							<span class="validate_error"><?php echo isset($durationErr) ? $durationErr : ''; ?></span>
 						</div>
 					</div><!-- form-group -->
+
+					<div class="form-group row business hidden">
+						<label for="number_of_entries" class="vc_col-md-3 col-form-label"><?php echo __( 'Number of Entries', 'visachild' ); ?></label>
+						<div class="vc_col-md-9">
+							<select name="number_of_entries" id="number_of_entries">
+								<?php 
+									foreach($entries as $key => $en) {
+								?>
+									<option value="<?= $key ?>" <?= (isset($entry) == $key) ? 'selected' : ''; ?> data-price="<?= $en['price']?>">
+										<?= __( $en['label'], 'visachild' ); ?>
+									</option>
+								<?php 
+									}
+								?>
+							</select>
+						</div>
+					</div><!-- form-group -->
 				</div> <!-- End travel info -->
-
-
-					<div class="tourism-form"></div>
+				<div class="tourism-form"></div>
 					<div id="visa_general-information" class="form_seprationSection">
 						<h2><?php echo __( 'General data', 'visachild' ); ?></h2>
 						<p><?php echo __( "Enter all your details below. Take this carefully from your passport. You must apply for a visa for all travelers (including children who are included in their parents' passports). You can do this in one go by clicking on 'add traveler' at the bottom. You only need to enter the general details once (all visas will be sent to the same address). It is not necessary that all travelers are resident at the address entered. The address is only used for sending the visas, if desired.", 'visachild' ); ?></p>
@@ -294,7 +326,21 @@ get_header();
 						<div class="form-group row">
 							<label for="province_name" class="vc_col-md-3 col-form-label"><?php echo __( 'Province', 'visachild' ); ?></label>
 							<div class="vc_col-md-9">
-								<input type="text" class="form-control" value="<?php echo isset($province_name) ? $province_name : ''; ?>" name="province_name" id="province_name" placeholder="<?php echo __( 'Province', 'visachild' ); ?>">
+								<input type="text" class="form-control hidden" value="<?php echo isset($province_name) ? $province_name : ''; ?>" name="province_name" id="inp_province_name" placeholder="<?php echo __( 'Province', 'visachild' ); ?>" id="inp_province_name">
+								<select class="form-control" name="province_name" id="sel_province_name">
+									<option>Drenthe</option>
+									<option>Flevoland</option>
+									<option>Friesland</option>
+									<option>Gelderland</option>
+									<option>Groningen</option>
+									<option>Limburg</option>
+									<option>Noord-Brabant</option>
+									<option>Noord-Holland</option>
+									<option>Overijssel</option>
+									<option>Utrecht</option>
+									<option>Zeeland</option>
+									<option>Zuid-Holland</option>
+								</select>
 								<span class="validate_error"><?php echo isset($provinceErr) ? $provinceErr : ''; ?></span>
 							</div>
 						</div><!-- form-group -->
@@ -320,8 +366,8 @@ get_header();
 								<label for="shipping_method" class="vc_col-md-3 col-form-label"><?php echo __( 'Shipping Method', 'visachild' ); ?></label>
 								<div class="vc_col-md-9">
 									<select name="shipping_method" id="shipping_method">
-									    <option value="" <?php echo (isset($shipping_method) == '') ? 'selected' : ''; ?> data-price='0'>Select Send Method ...
-									    </option>
+										<option value="" <?php echo (isset($shipping_method) == '') ? 'selected' : ''; ?> data-price='0'>Select Send Method ...
+										</option>
 										<option value="OC12"<?php echo (isset($shipping_method) == 'OC12') ? 'selected' : ''; ?> data-price='44.95'>Courier next business day before 12:00 (€ 44.95)</option>
 										<option value="OC17"<?php echo (isset($shipping_method) == 'OC17') ? 'selected' : ''; ?> data-price='34.95'>Courier next business day before 5:00 PM (€ 34.95)</option>
 										<option value="DROPOFF"<?php echo (isset($shipping_method) == 'DROPOFF') ? 'selected' : ''; ?>data-price='0'>Deliver yourself in Rotterdam</option>
@@ -334,35 +380,35 @@ get_header();
 								<label for="return_method" class="vc_col-md-3 col-form-label"><?php echo __( 'Return Method', 'visachild' ); ?></label>
 								<div class="vc_col-md-9">
 									<select name="return_method" id="return_method">
-									    <option value="" <?php echo (isset($Return_method) == '') ? 'selected' : ''; ?>>
-									        Select Return Method ...
-									    </option>
+										<option value="" <?php echo (isset($Return_method) == '') ? 'selected' : ''; ?>>
+												<?= __('Select Return Method ...', 'visachild') ?>
+										</option>
 										<option value="AVIA15" <?php echo (isset($Return_method) == 'AVIA15') ? 'selected' : ''; ?>>
-									    	Avia partner desk before 3:00 PM (€ 47.50)
+												<?= __('Avia partner desk before 3:00 PM (€ 47.50)', 'visachild') ?>
 										</option>
 										<option value="AVIA20" <?php echo (isset($Return_method) == 'AVIA20') ? 'selected' : ''; ?>>
-										    Avia partner desk before 8:00 PM (€ 47.50)
+											<?= __('Avia partner desk before 8:00 PM (€ 47.50)', 'visachild') ?>
 										</option>
 										<option value="DHL" <?php echo (isset($Return_method) == 'DHL') ? 'selected' : ''; ?>>
-										    DHL guaranteed 2 days (€ 17.95)
+											<?= __('DHL guaranteed 2 days (€ 17.95)', 'visachild') ?>
 										</option>
 										<option value="DC" <?php echo (isset($Return_method) == 'DC') ? 'selected' : ''; ?>>
-										    Direct courier (on request)
+											<?= __('Direct courier (on request)', 'visachild') ?>
 										</option>
 										<option value="INTERNATIONAL" <?php echo (isset($Return_method) == 'INTERNATIONAL') ? 'selected' : ''; ?>>
-										    International courier (on request)
+											<?= __('International courier (on request)', 'visachild') ?>
 										</option>
 										<option value="OC12" <?php echo (isset($Return_method) == 'OC12') ? 'selected' : ''; ?>>
-										    Courier next day before 12:00 (€ 50.00)
+											<?= __('Courier next day before 12:00 (€ 50.00)', 'visachild') ?>
 										</option>
 										<option value="OC17" <?php echo (isset($Return_method) == 'OC17') ? 'selected' : ''; ?>>
-										    Courier next day before 17:00 (€ 33.00)
+											<?= __('Courier next day before 17:00 (€ 33.00)', 'visachild') ?>
 										</option>
 										<option value="PICKUP" <?php echo (isset($Return_method) == 'PICKUP') ? 'selected' : ''; ?>>
-										    Pick up yourself in Hoofddorp
+											<?= __('Pick up yourself in Hoofddorp', 'visachild') ?>
 										</option>
 									</select>
-									<span class="validate_error"><?php echo isset($ReturnErr) ? $ReturnErr : ''; ?></span>
+								<span class="validate_error"><?php echo isset($ReturnErr) ? $ReturnErr : ''; ?></span>
 								</div>
 							</div><!-- form-group -->
 							<h3><?php echo __( 'Accomodation', 'visachild' ); ?></h3>
@@ -417,7 +463,7 @@ get_header();
 							?>
 							<div class="add_place-section" id="add_place-section">
 								<span id="add_place_info_button" class="btn btn-full-width btn-primary" data-total="<?php echo $cntplaces; ?>">
-									<i class="fa fa-user-plus" aria-hidden="true"></i>  Add Place
+									<i class="fa fa-user-plus" aria-hidden="true"></i>  <?php echo __( 'Add Place', 'visachild' ); ?>
 								</span>
 							</div> <!-- add_intended-section -->
 						</div>
@@ -498,9 +544,9 @@ get_header();
 						<p><?php echo __( 'An invitation letter is required for Russia. If you wish us to arrange this for you, then check the box below. The costs of the invitation letter are € 55 excluding VAT per person.', 'visachild' ); ?></p>
 
 						<label for="invitation_letter" class="checkboxLabeled">
-						  <input type="checkbox" name="invitation_letter" id="invitation_letter" style="display: inline-block;width: auto;height: auto;" value="Yes" class="visuallyhidden" <?php isset($invitation_letter) ? 'checked': ''; ?>>
-						  <!-- <span class="fa fa-check check-mark"></span> -->
-						  <span class="text"><?php echo __( 'Invitation Letter', 'visachild' ); ?></span>
+							<input type="checkbox" name="invitation_letter" id="invitation_letter" style="display: inline-block;width: auto;height: auto;" value="Yes" class="visuallyhidden" <?php isset($invitation_letter) ? 'checked': ''; ?>>
+							<!-- <span class="fa fa-check check-mark"></span> -->
+							<span class="text"><?php echo __( 'Invitation Letter', 'visachild' ); ?></span>
 						</label>
 					</div>
 					<div id="visa_travel_details-information" class="form_seprationSection">
@@ -596,7 +642,6 @@ get_header();
 									</div>
 								</div><!-- form-group -->
 
-
 								<div class="form-group row">
 									<label for="traverler_date_birth_<?php echo $j; ?>" class="vc_col-md-3 col-form-label"><?php echo __( 'Date of birth', 'visachild' ); ?></label>
 									<div class="vc_col-md-9">
@@ -610,7 +655,7 @@ get_header();
 										<label for="traverler_russian_nationality_<?php echo $j;?>" class="vc_col-md-3 col-form-label"><?php echo __( 'RUSSIAN NATIONALITY', 'visachild' ); ?></label>
 										<div class="vc_col-md-9">
 											<select name="traverler[russian_nationality][]" id="traverler_russian_nationality">
-											    <option value="no" <?php echo (isset($_POST['traverler']['russian_nationality'][$j]) == 'no') ? 'selected' : ''; ?>>No</option>
+												<option value="no" <?php echo (isset($_POST['traverler']['russian_nationality'][$j]) == 'no') ? 'selected' : ''; ?>>No</option>
 												<option value="yes" <?php echo (isset($_POST['traverler']['russian_nationality'][$j]) == 'yes') ? 'selected' : ''; ?>>Yes</option>
 											</select>
 										</div>
@@ -639,7 +684,7 @@ get_header();
 										<label for="traverler_born_in_russia_<?php echo $j;?>" class="vc_col-md-3 col-form-label"><?php echo __( 'Born In RUSSIA', 'visachild' ); ?></label>
 										<div class="vc_col-md-9">
 											<select name="traverler[born_in_russia][]" id="traverler_born_in_russia">
-											    <option value="no" <?php echo (isset($_POST['traverler']['born_in_russia'][$j]) == 'no') ? 'selected' : ''; ?>>No</option>
+												<option value="no" <?php echo (isset($_POST['traverler']['born_in_russia'][$j]) == 'no') ? 'selected' : ''; ?>>No</option>
 												<option value="yes" <?php echo (isset($_POST['traverler']['born_in_russia'][$j]) == 'yes') ? 'selected' : ''; ?>>Yes</option>
 											</select>
 										</div>
@@ -1014,16 +1059,25 @@ get_header();
 										</div>
 									</div><!-- form-group -->
 								</div>
-
-								<h3><?php echo __( 'Disclaimer', 'visachild' ); ?></h3>
-								<p>
-									<ul>
-										<li>I agree with the automatic processing, transfer and storage of the data in the application for e-visa purposes.</li>
-										<li>I confirm that the information provided in the application is complete and accurate. I am aware that incorrect information can lead to a visa being refused or a visa being canceled at the border crossing of the Russian Federation.</li>
-										<li>I am aware of the conditions for entry to the Russian Federation, residence in the territory of the Russian Federation and leaving the Russian Federation with an e-visa.</li>
-										<li>I am aware that an e-Visa does not guarantee the right of access to the territory of the Russian Federation and access can be denied to me in cases provided for by Russian law. In the event of a denied access, I cannot claim compensation for any losses.</li>
-									</ul>
-								</p>
+								<div class="duration-1-8">
+									<h3><?php echo __( 'Disclaimer', 'visachild' ); ?></h3>
+									<p>
+										<ul>
+											<li>
+												<?= __('I agree with the automatic processing, transfer and storage of the data in the application for e-visa purposes.', 'visachild') ?>
+											</li>
+											<li>
+												<?= __('I confirm that the information provided in the application is complete and accurate. I am aware that incorrect information can lead to a visa being refused or a visa being canceled at the border crossing of the Russian Federation.', 'visachild') ?>
+											</li>
+											<li>
+												<?= __('I am aware of the conditions for entry to the Russian Federation, residence in the territory of the Russian Federation and leaving the Russian Federation with an e-visa.', 'visachild') ?>
+											</li>
+											<li>
+												<?= __('I am aware that an e-Visa does not guarantee the right of access to the territory of the Russian Federation and access can be denied to me in cases provided for by Russian law. In the event of a denied access, I cannot claim compensation for any losses.', 'visachild') ?>
+											</li>
+										</ul>
+									</p>
+								</div>
 
 								<div class="form-group row">
 									<label for="traverler_terms_<?php echo $j; ?>" class="vc_col-md-3 col-form-label"><?php echo __( 'I HAVE READ AND AGREE TO THE ABOVE CONDITIONS *', 'visachild' ); ?></label>
@@ -1033,11 +1087,8 @@ get_header();
 										</select>
 									</div>
 								</div>
-
 							</div> <!-- traveler_info -->
-
 						<?php } ?>
-
 
 						<div class="add_travelers-section" id="add_travelers-section">
 							<h3><?php echo __( 'Add travelers to the form', 'visachild' ); ?></h3>
@@ -1048,9 +1099,9 @@ get_header();
 						</div> <!-- add_travelers-section -->
 					</div> <!-- visa_travel_details-information -->
 
-					<div class="visa_form_submit_section">
+					<div class="visa_form_submit_section text-right">
 						<button type="submit" class="btn btn-conv" data-nonce="<?php echo $russia_nonce; ?>">
-							<span>Apply for visas</span><i class="fa fa-angle-right" aria-hidden="true"></i>
+							<span><?=__( 'Apply for visas', 'visachild' ); ?></span><i class="fa fa-angle-right" aria-hidden="true"></i>
 						</button>
 					</div>
 			</form>
@@ -1063,13 +1114,16 @@ get_header();
 				</div>
 				<div class="content">
 					<div id="visum">
-						<p><b>Visum: </b> Russia Tourism</p>
+						<p><b>Visum: </b> <?= __( 'Russia Tourism', 'visachild' ) ?></p>
 					</div>
-					<div id="duration">
-						<p><b>Duration: </b> 1 t/m 8 days</p>
+					<div class="duration-1-8">
+						<p><b><?= __( 'Duration', 'visachild' ) ?>: </b> 1 t/m 8 <?=__( 'days', 'visachild' )?></p>
 					</div>
-					<div id="price">
-						<p><b>Price: </b> € 39.95</p>
+					<div class="duration-9-30 hidden">
+						<p><b><?=__( 'Duration', 'visachild' )?>: </b> 9 t/m 30 <?=__( 'days', 'visachild' )?></p>
+					</div>
+					<div>
+						<p><b><?=__( 'Price', 'visachild' )?>: </b> € <span id="price">39.95</span></p>
 					</div>
 				</div>
 				<div class="more-info">
@@ -1097,7 +1151,6 @@ get_header();
 			if (purpose == 'Tourism') {
 				$('#purpose_modal .modal-title').html('<b>Are you sure to change to Business purpose?</b>');
 			}
-
 			else {
 				$('#purpose_modal .modal-title').html('<b>Are you sure to change to Tourism purpose?</b>');
 			}
@@ -1106,28 +1159,26 @@ get_header();
 		$('#change_purpose_btn').click(function() {
 			if ($('#purpose').val() == "Tourism") {
 				newselectedValue = "Business";
+				$('.business.hidden').removeClass('hidden');
 				$('#purpose').val( newselectedValue );
 				$('#visum').html('<p><b>Visum: </b> Russia '+ newselectedValue +'</p>');
 				if ($('#duration_option').val() ==  '1 t/m 8 days') {
-					$('#duration').html('<p><b>Duration: </b> 1 t/m 8 days</p>');
-					$('#price').html('<p><b>Price: </b> € 39.95</p>');
+					$('#price').html('39.95');
 				}
 				if ($('#duration_option').val() ==  '9 t/m 30 days'){
-					$('#duration').html('<p><b>Duration: </b> 9 t/m 30 days</p>');
-					$('#price').html('<p><b>Price: </b> € 104.95</p>');
+					$('#price').html('104.95');
 				}
 			}
 			else {
 				newselectedValue = "Tourism";
+				$('.business').not('.hidden').addClass('hidden');
 				$('#purpose').val( newselectedValue );
 				$('#visum').html('<p><b>Visum: </b> Russia '+ newselectedValue +'</p>');
 				if ($('#duration_option').val() ==  '1 t/m 8 days') {
-					$('#duration').html('<p><b>Duration: </b> 1 t/m 8 days</p>');
-					$('#price').html('<p><b>Price: </b> € 39.95</p>');
+					$('#price').html('39.95');
 				}
 				if ($('#duration_option').val() ==  '9 t/m 30 days'){
-					$('#duration').html('<p><b>Duration: </b> 9 t/m 30 days</p>');
-					$('#price').html('<p><b>Price: </b> € 104.95</p>');
+					$('#price').html('104.95');
 				}
 			}
 
@@ -1135,31 +1186,31 @@ get_header();
 			// $('.visa_form_submit')[0].reset();
 
 		});
+
+		$('#countries').change(function (e) {
+			if ($(this).val() === 'Netherlands') {
+				$('#sel_province_name').attr('name', 'province_name');
+				$('#inp_province_name').attr('name', 'inp_province_name');
+				$('#sel_province_name.hidden').removeClass('hidden');
+				$('#inp_province_name').not('.hidden').addClass('hidden');
+			} else {
+				$('#inp_province_name').attr('name', 'province_name');
+				$('#sel_province_name').attr('name', 'inp_province_name');
+				$('#inp_province_name.hidden').removeClass('hidden');
+				$('#sel_province_name').not('.hidden').addClass('hidden');
+			}
+
+		});
 		$("#duration_option").change(function(){
 			if ($('#duration_option').val() ==  '1 t/m 8 days') {
-				if ($('#purpose').val() == 'Tourism') {
-					$('#duration').html('<p><b>Duration: </b> 1 t/m 8 days</p>');
-					$('#price').html('<p><b>Price: </b> € 39.95</p>');
-				}
-				if ($('#purpose').val() == 'Business'){
-					$('#duration').html('<p><b>Duration: </b> 1 t/m 8 days</p>');
-					$('#price').html('<p><b>Price: </b> € 39.95</p>');
-				}
-				$('.duration-1-8').addClass('hidden');
-				$('duration-9-30').removeClass('hidden');
+				$('#price').html('39.95');
 			}
 			if ($('#duration_option').val() ==  '9 t/m 30 days'){
-				if ($('#purpose').val() == 'Tourism') {
-					$('#duration').html('<p><b>Duration: </b> 9 t/m 30 days</p>');
-					$('#price').html('<p><b>Price: </b> € 104.95</p>');				
-				}
-				if ($('#purpose').val() == 'Business'){
-					$('#duration').html('<p><b>Duration: </b> 9 t/m 30 days</p>');
-					$('#price').html('<p><b>Price: </b> € 104.95</p>');
-				}
-				$('.duration-1-8').addClass('hidden');
-				$('.duration-9-30').removeClass('hidden');
+				$('#price').html('104.95');
 			}
+
+			$('.duration-1-8').addClass('hidden');
+			$('.duration-9-30').removeClass('hidden');
 		});
 
 		$(document).on('change','#traverler_alt_name',function(event) {
@@ -1208,20 +1259,20 @@ get_header();
 			var return_method = 0;
 			var old_price = 104.95;
 			var price = 0;
-			if($('#invitation_letter'). prop("checked") == true){
-				console.log('check');
-				invitation_letter = $('#invitation_letter').data('price');
+			if($('#invitation_letter:checked').length){
+				invitation_letter = 55.00;
+				if ($('#purpose').val() == "Business") {
+					invitation_letter = $('#number_of_entries > option:selected').data('price');
+				}
 			}
-			if($('#invitation_letter'). prop("checked") == false){
-				console.log('uncheck');
+			if($('#invitation_letter:checked').length === 0){
 				invitation_letter = 0;
 			}
 			shipping_method = $('#shipping_method'). children("option:selected").data('price');
+			// return_method = $('#return_method'). children("option:selected").data('price');
+			price = parseFloat(old_price) + invitation_letter + parseFloat(shipping_method);
 
-			return_method = $('#return_method'). children("option:selected").data('price');
-			price = parseFloat(old_price) + parseFloat(invitation_letter) + parseFloat(shipping_method) + parseFloat(return_method);
-
-			$('#price').html('<p><b>Price: </b> € '+price.toFixed(2)+'</p>');
+			$('#price').html('price.toFixed(2)');
 		}
 	});
 </script>

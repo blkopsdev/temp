@@ -25,7 +25,8 @@ function russia_form_submit_new($postData) {
 		'hotel_company_name' => $postData['hotel_company_name'],
 		'hotel_company_address' => $postData['hotel_company_address'],
 		'hotel_company_place' => $postData['hotel_company_place'],
-		'area' => $postData['area_1_to_8']
+		'area' => $postData['area_1_to_8'],
+		'number_of_entries' => $postData['number_of_entries']
 	);
 	$wpdb->insert( $russia_form_db, $formData );
 	$russia_form_insert_id = $wpdb->insert_id;

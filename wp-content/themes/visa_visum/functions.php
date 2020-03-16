@@ -153,16 +153,16 @@ add_action("wp_ajax_nopriv_travel_purpose_table_edit", "none_login_user");
 
 function travel_purpose_table_edit() {
 
-   if ( !wp_verify_nonce( $_REQUEST['nonce'], "travel_purpose_table_edit_nonce")) {
-      exit("No naughty business please");
-   }
-   global $wpdb;
-   $travel_purpose_table = $wpdb->prefix."travel_purpose";
-   $postID = $_POST['post_id'];
-   $selectQuery = $wpdb->get_results("SELECT * FROM $travel_purpose_table WHERE id = $postID");
-   $result = json_encode($selectQuery);
-   echo $result;
-   die();
+  if ( !wp_verify_nonce( $_REQUEST['nonce'], "travel_purpose_table_edit_nonce")) {
+    exit("No naughty business please");
+  }
+  global $wpdb;
+  $travel_purpose_table = $wpdb->prefix."travel_purpose";
+  $postID = $_POST['post_id'];
+  $selectQuery = $wpdb->get_results("SELECT * FROM $travel_purpose_table WHERE id = $postID");
+  $result = json_encode($selectQuery);
+  echo $result;
+  die();
 }
 
 add_action("wp_ajax_travel_purpose_table_delete", "travel_purpose_table_delete");
@@ -170,16 +170,16 @@ add_action("wp_ajax_nopriv_travel_purpose_table_delete", "none_login_user");
 
 function travel_purpose_table_delete() {
 
-   if ( !wp_verify_nonce( $_REQUEST['nonce'], "travel_purpose_table_delete_nonce")) {
-      exit("No naughty business please");
-   }
-   global $wpdb;
-   $travel_purpose_table = $wpdb->prefix."travel_purpose";
-   $postID = $_POST['post_id'];
-   $selectQuery = $wpdb->delete( $travel_purpose_table, array( 'id' =>  $_POST['post_id'] ) );
-   $result = json_encode($selectQuery);
-   echo $result;
-   die();
+  if ( !wp_verify_nonce( $_REQUEST['nonce'], "travel_purpose_table_delete_nonce")) {
+    exit("No naughty business please");
+  }
+  global $wpdb;
+  $travel_purpose_table = $wpdb->prefix."travel_purpose";
+  $postID = $_POST['post_id'];
+  $selectQuery = $wpdb->delete( $travel_purpose_table, array( 'id' =>  $_POST['post_id'] ) );
+  $result = json_encode($selectQuery);
+  echo $result;
+  die();
 }
 
 add_action("wp_ajax_user_nationality_table_edit", "user_nationality_table_edit");
@@ -187,40 +187,39 @@ add_action("wp_ajax_nopriv_user_nationality_table_edit", "none_login_user");
 
 function user_nationality_table_edit() {
 
-   if ( !wp_verify_nonce( $_REQUEST['nonce'], "user_nationality_table_edit_nonce")) {
-      exit("No naughty business please");
-   }
-   global $wpdb;
-   $user_nationality_table = $wpdb->prefix."user_nationality";
-   $postID = $_POST['post_id'];
-   $selectQuery = $wpdb->get_results("SELECT * FROM $user_nationality_table WHERE id = $postID");
-   $result = json_encode($selectQuery);
-   echo $result;
-   die();
+  if ( !wp_verify_nonce( $_REQUEST['nonce'], "user_nationality_table_edit_nonce")) {
+    exit("No naughty business please");
+  }
+  global $wpdb;
+  $user_nationality_table = $wpdb->prefix."user_nationality";
+  $postID = $_POST['post_id'];
+  $selectQuery = $wpdb->get_results("SELECT * FROM $user_nationality_table WHERE id = $postID");
+  $result = json_encode($selectQuery);
+  echo $result;
+  die();
 }
 
 add_action("wp_ajax_user_nationality_table_delete", "user_nationality_table_delete");
 add_action("wp_ajax_nopriv_user_nationality_table_delete", "none_login_user");
 
 function user_nationality_table_delete() {
-
-   if ( !wp_verify_nonce( $_REQUEST['nonce'], "user_nationality_table_delete_nonce")) {
-      exit("No naughty business please");
-   }
-   global $wpdb;
-   $user_nationality_table = $wpdb->prefix."user_nationality";
-   $postID = $_POST['post_id'];
-   $selectQuery = $wpdb->delete( $user_nationality_table, array( 'id' =>  $_POST['post_id'] ) );
-   $result = json_encode($selectQuery);
-   echo $result;
-   die();
+  if ( !wp_verify_nonce( $_REQUEST['nonce'], "user_nationality_table_delete_nonce")) {
+    exit("No naughty business please");
+  }
+  global $wpdb;
+  $user_nationality_table = $wpdb->prefix."user_nationality";
+  $postID = $_POST['post_id'];
+  $selectQuery = $wpdb->delete( $user_nationality_table, array( 'id' =>  $_POST['post_id'] ) );
+  $result = json_encode($selectQuery);
+  echo $result;
+  die();
 }
 
 function get_list_countries() {
-   global $wpdb;
-   $countries_table = $wpdb->prefix."countries";
-   $countries = $wpdb->get_results("SELECT * FROM $countries_table");
-   return $countries;
+  global $wpdb;
+  $countries_table = $wpdb->prefix."countries";
+  $countries = $wpdb->get_results("SELECT * FROM $countries_table");
+  return $countries;
 }
 
 require_once get_stylesheet_directory() . "/inc/travelDB.php"; // create table
