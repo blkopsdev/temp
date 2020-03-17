@@ -1171,22 +1171,33 @@ get_header();
 				$('#visum').html('<p><b>Visum: </b> Russia '+ newselectedValue +'</p>');
 				if ($('#duration_option').val() ==  '1 t/m 8 days') {
 					$('#price').html('39.95');
+					$('#invitation_letter').not('.hidden').addClass('hidden');
 				}
 				else if ($('#duration_option').val() ==  '9 t/m 30 days'){
 					$('#price').html('104.95');
+					$('#invitation_letter.hidden').removeClass('hidden');
 				}
 			}
 			else {
 				newselectedValue = "Tourism";
 				$('.business').not('.hidden').addClass('hidden');
 				$('.tourism.hidden').removeClass('hidden');
+				$('.single-entry.hidden').removeClass('hidden');
 				$('#purpose').val( newselectedValue );
+				$('.matlassidebar .double-entry').not('hidden').addClass('hidden');
+				
 				$('#visum').html('<p><b>Visum: </b> Russia '+ newselectedValue +'</p>');
 				if ($('#duration_option').val() ==  '1 t/m 8 days') {
 					$('#price').html('39.95');
+					$('#invitation_letter').not('.hidden').addClass('hidden');
+					$('.matlassidebar .duration-9-30').not('hidden').addClass('hidden');
+					$('.matlassidebar .duration-1-8.hidden').removeClass('hidden');
 				}
 				if ($('#duration_option').val() ==  '9 t/m 30 days'){
 					$('#price').html('104.95');
+					$('#invitation_letter.hidden').removeClass('hidden');
+					$('.matlassidebar .duration-1-8').not('hidden').addClass('hidden');
+					$('.matlassidebar .duration-9-30.hidden').removeClass('hidden');
 				}
 			}
 
@@ -1212,13 +1223,16 @@ get_header();
 		$("#duration_option").change(function(){
 			if ($('#duration_option').val() ==  '1 t/m 8 days') {
 				$('#price').html('39.95');
+				$('#invitation_letter').not('.hidden').addClass('hidden');
+				$('.duration-9-30').addClass('hidden');
+				$('.duration-1-8').removeClass('hidden');
 			}
 			if ($('#duration_option').val() ==  '9 t/m 30 days'){
 				$('#price').html('104.95');
+				$('#invitation_letter.hidden').removeClass('hidden');
+				$('.duration-1-8').addClass('hidden');
+				$('.duration-9-30').removeClass('hidden');
 			}
-
-			$('.duration-1-8').addClass('hidden');
-			$('.duration-9-30').removeClass('hidden');
 		});
 
 		$(document).on('change','#traverler_alt_name',function(event) {
@@ -1267,11 +1281,9 @@ get_header();
 				$('.matlassidebar .duration-1-8').not('.hidden').addClass('hidden');
 				$('.matlassidebar .duration-9-30').not('.hidden').addClass('hidden');
 				$('.matlassidebar .double-entry.hidden').removeClass('hidden');
-				$('#duration_option').not('.hidden').addClass('hidden');
 				$('.single-entry').not('hidden').addClass('hidden');
 				$('.double-entry.hidden').removeClass('hidden');
 			} else {
-				$('#duration_option.hidden').removeClass('hidden');
 				if ($('#duration_option').val() ==  '1 t/m 8 days') {
 					$('#invitation_letter').not('.hidden').addClass('hidden');
 					$('.matlassidebar .duration-1-8.hidden').removeClass('hidden');
