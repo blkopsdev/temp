@@ -196,7 +196,7 @@ label.error {
 
 
 .add_travelers-section .btn-full-width {
-    background-color: #f2403d !important;
+    background: #0774af !important;
     color: #ffffff !important;
     font-size: 13px !important;
     padding: 10px !important;
@@ -209,7 +209,7 @@ label.error {
 }
 
 .add_travelers-section .btn-full-width:hover {
-    background-color: #0774af !important;
+    background-color: #4C7E39 !important;
 }
 
 .urgent {
@@ -435,8 +435,7 @@ label.error {
     color: #ffffff!important;
 }
 
-.site-main.clr .add_travelers-section .btn-full-width {
-    background: #0774af !important;
+.add_travelers-section .btn-full-width {
     border: 0;
     border-radius: 4px;
 }

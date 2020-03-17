@@ -28,7 +28,6 @@ if(!empty($_POST)) {
 
 		for ($j = 0; $j < $cntTraveller; $j++) {
 
-
 			$target_file_passport_data = $target_dir_passport_data . basename($_FILES['traverler']['name']['passport_data'][$j]);
 
 			$target_file_passport_photo = $target_dir_passport_photo . basename($_FILES['traverler']['name']['passport_photo'][$j]);
@@ -328,6 +327,7 @@ get_header();
 							<div class="vc_col-md-9">
 								<input type="text" class="form-control hidden" value="<?php echo isset($province_name) ? $province_name : ''; ?>" name="province_name" id="inp_province_name" placeholder="<?php echo __( 'Province', 'visachild' ); ?>" id="inp_province_name">
 								<select class="form-control" name="province_name" id="sel_province_name">
+									<option></option>
 									<option>Drenthe</option>
 									<option>Flevoland</option>
 									<option>Friesland</option>
@@ -1090,15 +1090,16 @@ get_header();
 							</div> <!-- traveler_info -->
 						<?php } ?>
 
-						<div class="add_travelers-section" id="add_travelers-section">
+						<div id="add_travelers-section">
 							<h3><?php echo __( 'Add travelers to the form', 'visachild' ); ?></h3>
 							<p><?php echo __( 'Every traveler needs their own visa, including accompanying children. By adding your fellow travelers to this application form, you do not have to re-enter the contact and travel details each time.', 'visachild' ); ?></p>
-							<span id="add_traverl_info_button" class="btn btn-full-width btn-primary" data-total="<?php echo $cntTraveller; ?>">
-								<i class="fa fa-user-plus" aria-hidden="true"></i>  Add a traveler
-							</span>
 						</div> <!-- add_travelers-section -->
 					</div> <!-- visa_travel_details-information -->
-
+					<div class="add_travelers-section form_seprationSection">
+						<span id="add_traverl_info_button" class="btn btn-full-width btn-primary" data-total="<?php echo $cntTraveller; ?>">
+							<i class="fa fa-user-plus" aria-hidden="true"></i>  Add a traveler
+						</span>
+					</div>
 					<div class="visa_form_submit_section text-right">
 						<button type="submit" class="btn btn-conv" data-nonce="<?php echo $russia_nonce; ?>">
 							<span><?=__( 'Apply for visas', 'visachild' ); ?></span><i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -1121,6 +1122,9 @@ get_header();
 					</div>
 					<div class="duration-9-30 hidden">
 						<p><b><?=__( 'Duration', 'visachild' )?>: </b> 9 t/m 30 <?=__( 'days', 'visachild' )?></p>
+					</div>
+					<div class="double-entry hidden">
+						<p><b><?=__( 'Duration', 'visachild' )?>: </b>  <?=__( 'max 90 days', 'visachild' )?></p>
 					</div>
 					<div>
 						<p><b><?=__( 'Price', 'visachild' )?>: </b> € <span id="price">39.95</span></p>
@@ -1165,7 +1169,7 @@ get_header();
 				if ($('#duration_option').val() ==  '1 t/m 8 days') {
 					$('#price').html('39.95');
 				}
-				if ($('#duration_option').val() ==  '9 t/m 30 days'){
+				else if ($('#duration_option').val() ==  '9 t/m 30 days'){
 					$('#price').html('104.95');
 				}
 			}
@@ -1252,6 +1256,24 @@ get_header();
 		$(document).on('change', '#return_method', function(event) {
 			updatePrice();
 		});
+
+		$('#number_of_entries').change(function () {
+			if ($(this).val() !== 'single-entry') {
+				$('.matlassidebar .duration-1-8').not('.hidden').addClass('hidden');
+				$('.matlassidebar .duration-9-30').not('.hidden').addClass('hidden');
+				$('.matlassidebar .double-entry.hidden').removeClass('hidden');
+				$('#duration_option').not('.hidden').addClass('hidden');
+			} else {
+				$('#duration_option.hidden').removeClass('hidden');
+				if ($('#duration_option').val() ==  '1 t/m 8 days') {
+					$('.matlassidebar .duration-1-8.hidden').removeClass('hidden');
+				}
+				else if ($('#duration_option').val() ==  '9 t/m 30 days'){
+					$('.matlassidebar .duration-9-30.hidden').removeClass('hidden');
+				}
+				$('.matlassidebar .double-entry').not('.hidden').addClass('hidden');
+			}
+		}); 
 
 		function updatePrice(){
 			var invitation_letter = 0;
