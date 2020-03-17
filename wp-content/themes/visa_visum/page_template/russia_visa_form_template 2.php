@@ -199,7 +199,7 @@ get_header();
 						</div> <!-- Modal -->
 					</div><!-- form-group -->
 
-					<div class="form-group row">
+					<div class="form-group row single-entry">
 						<label for="duration" class="vc_col-md-3 col-form-label"><?php echo __( 'Duration', 'visachild' ); ?></label>
 						<div class="vc_col-md-9">
 							<select name="duration" id="duration_option">
@@ -541,7 +541,8 @@ get_header();
 					</div>
 					<div id="invitation_letter" class="form_seprationSection duration-9-30 hidden">
 						<h3><?php echo __( 'Invitation letter', 'visachild' ); ?></h3>
-						<p><?php echo __( 'An invitation letter is required for Russia. If you wish us to arrange this for you, then check the box below. The costs of the invitation letter are € 55 excluding VAT per person.', 'visachild' ); ?></p>
+						<p class="tourism"><?php echo __( 'An invitation letter is required for Russia. If you wish us to arrange this for you, then check the box below. The costs of the invitation letter are € 55 excluding VAT per person.', 'visachild' ); ?></p>
+						<p class="business hidden"><?php echo __( 'An invitation letter is required for Russia. If you would like us to arrange this for you, please tick the box below. The cost of the invitation letter is € 163,35 INCL. VAT per person for a single entry visa, € 211,75 for a double entry visa and € 320,65 for a multiple entry visa.', 'visachild' ); ?></p>
 
 						<label for="invitation_letter" class="checkboxLabeled">
 							<input type="checkbox" name="invitation_letter" id="invitation_letter" style="display: inline-block;width: auto;height: auto;" value="Yes" class="visuallyhidden" <?php isset($invitation_letter) ? 'checked': ''; ?>>
@@ -1093,13 +1094,14 @@ get_header();
 						<div id="add_travelers-section">
 							<h3><?php echo __( 'Add travelers to the form', 'visachild' ); ?></h3>
 							<p><?php echo __( 'Every traveler needs their own visa, including accompanying children. By adding your fellow travelers to this application form, you do not have to re-enter the contact and travel details each time.', 'visachild' ); ?></p>
+							<div class="add_travelers-section">
+								<span id="add_traverl_info_button" class="btn btn-full-width btn-primary" data-total="<?php echo $cntTraveller; ?>">
+									<i class="fa fa-user-plus" aria-hidden="true"></i>  Add a traveler
+								</span>
+							</div>
 						</div> <!-- add_travelers-section -->
 					</div> <!-- visa_travel_details-information -->
-					<div class="add_travelers-section form_seprationSection">
-						<span id="add_traverl_info_button" class="btn btn-full-width btn-primary" data-total="<?php echo $cntTraveller; ?>">
-							<i class="fa fa-user-plus" aria-hidden="true"></i>  Add a traveler
-						</span>
-					</div>
+					
 					<div class="visa_form_submit_section text-right">
 						<button type="submit" class="btn btn-conv" data-nonce="<?php echo $russia_nonce; ?>">
 							<span><?=__( 'Apply for visas', 'visachild' ); ?></span><i class="fa fa-angle-right" aria-hidden="true"></i>
@@ -1164,6 +1166,7 @@ get_header();
 			if ($('#purpose').val() == "Tourism") {
 				newselectedValue = "Business";
 				$('.business.hidden').removeClass('hidden');
+				$('.tourism').not('.hidden').addClass('hidden');
 				$('#purpose').val( newselectedValue );
 				$('#visum').html('<p><b>Visum: </b> Russia '+ newselectedValue +'</p>');
 				if ($('#duration_option').val() ==  '1 t/m 8 days') {
@@ -1176,6 +1179,7 @@ get_header();
 			else {
 				newselectedValue = "Tourism";
 				$('.business').not('.hidden').addClass('hidden');
+				$('.tourism.hidden').removeClass('hidden');
 				$('#purpose').val( newselectedValue );
 				$('#visum').html('<p><b>Visum: </b> Russia '+ newselectedValue +'</p>');
 				if ($('#duration_option').val() ==  '1 t/m 8 days') {
@@ -1259,27 +1263,35 @@ get_header();
 
 		$('#number_of_entries').change(function () {
 			if ($(this).val() !== 'single-entry') {
+				$('#invitation_letter.hidden').removeClass('hidden');
 				$('.matlassidebar .duration-1-8').not('.hidden').addClass('hidden');
 				$('.matlassidebar .duration-9-30').not('.hidden').addClass('hidden');
 				$('.matlassidebar .double-entry.hidden').removeClass('hidden');
 				$('#duration_option').not('.hidden').addClass('hidden');
+				$('.single-entry').not('hidden').addClass('hidden');
+				$('.double-entry.hidden').removeClass('hidden');
 			} else {
 				$('#duration_option.hidden').removeClass('hidden');
 				if ($('#duration_option').val() ==  '1 t/m 8 days') {
+					$('#invitation_letter').not('.hidden').addClass('hidden');
 					$('.matlassidebar .duration-1-8.hidden').removeClass('hidden');
 				}
 				else if ($('#duration_option').val() ==  '9 t/m 30 days'){
 					$('.matlassidebar .duration-9-30.hidden').removeClass('hidden');
+					$('#invitation_letter.hidden').removeClass('hidden');
 				}
+				$('.single-entry.hidden').removeClass('hidden');
+				$('.double-entry').not('hidden').addClass('hidden');
 				$('.matlassidebar .double-entry').not('.hidden').addClass('hidden');
 			}
+			updatePrice();
 		}); 
 
 		function updatePrice(){
 			var invitation_letter = 0;
 			var shipping_method = 0;
 			var return_method = 0;
-			var old_price = 104.95;
+			var old_price = ($('#duration_option').val() ==  '1 t/m 8 days' && $('#number_of_entries').val() == 'single-entry') ? 39.95 : 104.95  ;
 			var price = 0;
 			if($('#invitation_letter:checked').length){
 				invitation_letter = 55.00;

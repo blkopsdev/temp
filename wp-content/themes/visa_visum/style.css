@@ -209,7 +209,7 @@ label.error {
 }
 
 .add_travelers-section .btn-full-width:hover {
-    background-color: #4C7E39 !important;
+    background-color: #3B6D39 !important;
 }
 
 .urgent {
@@ -224,7 +224,7 @@ label.error {
 
 #addMoreTraveller,
 .visa_form_submit button[type="submit"] {
-    background-color: #0774af !important;
+    background-color: #4C7E39 !important;
     color: #ffffff !important;
     font-size: 16px !important;
     padding-top: 10px !important;
@@ -237,7 +237,7 @@ label.error {
 
 #addMoreTraveller:hover,
 .visa_form_submit button[type="submit"]:hover {
-    background-color: #4C7E39 !important;
+    background-color: #3B6D39 !important;
 }
 
 .form_seprationSection .house_section {
@@ -431,7 +431,7 @@ label.error {
 }
 
 .site-main.clr .visa_form_submit button[type="submit"]:hover {
-    background: #4C7E39!important;
+    background: #3B6D39!important;
     color: #ffffff!important;
 }
 
