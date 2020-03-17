@@ -122,7 +122,7 @@ function russia_form_submit_new($postData) {
 			}
 		}
 		$wpdb->flush();
-		return true;
 	}
+	return true;	
 }
 ?>

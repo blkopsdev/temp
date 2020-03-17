@@ -1163,6 +1163,7 @@ get_header();
 		});
 
 		$('#change_purpose_btn').click(function() {
+			updatePrice();
 			if ($('#purpose').val() == "Tourism") {
 				newselectedValue = "Business";
 				$('.business.hidden').removeClass('hidden');
@@ -1305,13 +1306,13 @@ get_header();
 			var return_method = 0;
 			var old_price = ($('#duration_option').val() ==  '1 t/m 8 days' && $('#number_of_entries').val() == 'single-entry') ? 39.95 : 104.95  ;
 			var price = 0;
-			if($('#invitation_letter:checked').length){
+			if($('#duration_option').val() ==  '9 t/m 30 days' && $('#invitation_letter:checked').length){
 				invitation_letter = 55.00;
 				if ($('#purpose').val() == "Business") {
 					invitation_letter = $('#number_of_entries > option:selected').data('price');
 				}
 			}
-			if($('#invitation_letter:checked').length === 0){
+			else {
 				invitation_letter = 0;
 			}
 			shipping_method = $('#shipping_method'). children("option:selected").data('price');
