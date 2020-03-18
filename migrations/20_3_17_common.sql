@@ -5,7 +5,6 @@ CREATE TABLE `drop`.`wp_common` (
   `duration` VARCHAR(45) NULL,
   `arrival_date` VARCHAR(45) NULL,
   `payment_mod` VARCHAR(45) NULL,
-  `wp_commoncol` VARCHAR(45) NULL,
   `form_id` INT NULL,
   `table_name` VARCHAR(45) NULL,
   `company` VARCHAR(45) NULL,

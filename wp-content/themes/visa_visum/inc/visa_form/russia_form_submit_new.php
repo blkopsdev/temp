@@ -3,8 +3,9 @@ function russia_form_submit_new($postData) {
 	global $wpdb;
 	$russia_form_db = $wpdb->prefix."russia_visa_form_new";
 	$traveral_db = $wpdb->prefix."russia_visa_traverler_data_new";
-	$intended_db= $wpdb->prefix."russia_intended_data";
-	$place_db= $wpdb->prefix."russia_place_visit_data";
+	$intended_db = $wpdb->prefix."russia_intended_data";
+	$place_db = $wpdb->prefix."russia_place_visit_data";
+	$common_db = $wpdb->prefix."common";
 	$formData = array(
 		'destination_country' => $postData['destination_country'],
 		'nationality' => $postData['nationality'],
@@ -121,6 +122,22 @@ function russia_form_submit_new($postData) {
 				}
 			}
 		}
+
+		$common_data = [
+			'company' => '',
+			'date_created' => date('Y-m-d'),
+			'arrival_date' => $postData['arrival_date'],
+			'duration' => $postData['duration'],
+			'payment_mod' => '',
+			'form_id' => $russia_form_insert_id,
+			'table_name' => $russia_form_db,
+			'country' => 'Russia',
+			'purpose' => $postData['purpose'],
+			'transaction_id' => '',
+			'payment_status' => 'Action required'
+		];
+		$wpdb->insert( $common_db, $common_data );
+
 		$wpdb->flush();
 	}
 	return true;	
