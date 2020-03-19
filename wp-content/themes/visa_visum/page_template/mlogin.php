@@ -8,7 +8,7 @@
 */
 get_header(); ?>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<?php if( is_user_logged_in() ){ wp_redirect(site_url(), 301 ); } ?>
+<?php //if( is_user_logged_in() ){ wp_redirect(site_url(), 301 ); } ?>
 <div class="container">
     <div class="login_form">
         <div class="left_logo">

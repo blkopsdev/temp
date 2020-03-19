@@ -1,6 +1,7 @@
 <?php
 function thailand_form_submit_new($postData) {
 	global $wpdb;
+	$visa_global_entry_db = $wpdb->prefix."visa_form_entries";
 	$russia_form_db = $wpdb->prefix."thailand_visa_form_new";
 	$traveral_db = $wpdb->prefix."thailand_visa_traverler_data_new";
 	$formData = array(
@@ -54,6 +55,16 @@ function thailand_form_submit_new($postData) {
 				$wpdb->insert( $traveral_db, $traveral_data );
 			}
 		}
+		if (!isset($postData['duration'])) {
+			$postData['duration'] = '';
+		}
+		$visa_global_entry_Data = array(
+			'country' => $postData['destination_country'],
+			'purpose' => $postData['purpose'],
+			'duration' => $postData['duration'],
+			'arrival_date' => $postData['arrival_date'],
+		);
+		$wpdb->insert( $visa_global_entry_db, $visa_global_entry_Data );
 		$wpdb->flush();
 		return true;
 	}
