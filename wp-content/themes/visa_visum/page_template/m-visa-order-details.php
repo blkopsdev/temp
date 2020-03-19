@@ -59,7 +59,7 @@ $table = $wpdb->prefix."russia_visa_form_new";
             </ul>
         </div>
         <div class="progress-bar">
-            <a href="/python?fid=<?php echo $_GET['fid'] ?>&dest=<?php echo $_GET['dest'] ?>&lang=en" id="progress-visa">Progress Visa</a>
+            <a href="/python?fid=<?php echo $_GET['fid'] ?>&dest=<?php echo $_GET['dest'] ?>" id="progress-visa">Progress Visa</a>
         </div>
         <div class="visa_comments">
         <?php if(isset($_GET['edit_visa']) && $_GET['edit_visa'] == 'yes'){ ?>
@@ -79,26 +79,39 @@ $table = $wpdb->prefix."russia_visa_form_new";
             <div class="visa_details">
             <?php
                 if (isset($_GET['fid'])) {
-                $visa_id = $_GET['fid'];
-                $visa_destination = $_GET['dest'];
+                    $visa_id = $_GET['fid'];
+                    $visa_destination = $_GET['dest'];
 
-                if($visa_destination == 'Russia'){
-                    get_template_part( 'template-parts/mvisa/russia', 'detail' );
+                    if($visa_destination == 'Russia'){
+                        get_template_part( 'template-parts/mvisa/russia', 'detail' );
+                    }
                 }
-              }
             ?>
             </div>
-            <div class="comments">
-                <h3>Comments</h3>
-                <div class="comments_connect">
-                    <div class="updated_system">
-                    <div class="comment_image">
-                        <img src="<?php echo get_stylesheet_directory_uri()?>/images/profile_logo.png" class="img-fluid">
-                    </div>
-                    <div class="system_details">
-                        <h3>System <span>30-12-2019</span></h3>
-                        <h2>Order was updated</h2>
-                    </div>
+            <div class="page-details">
+                <div class="document-info">
+                <?php
+                    if (isset($_GET['fid'])) {
+                        $visa_id = $_GET['fid'];
+                        $visa_destination = $_GET['dest'];
+                        
+                        get_template_part( 'template-parts/document', 'detail' );
+                        
+                    }
+                ?>
+                </div>
+                <div class="comments">
+                    <h3>Comments</h3>
+                    <div class="comments_connect">
+                        <div class="updated_system">
+                        <div class="comment_image">
+                            <img src="<?php echo get_stylesheet_directory_uri()?>/images/profile_logo.png" class="img-fluid">
+                        </div>
+                        <div class="system_details">
+                            <h3>System <span>30-12-2019</span></h3>
+                            <h2>Order was updated</h2>
+                        </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -13,7 +13,8 @@ get_header();
 <?php
     $fid = $_GET['fid'];
     $dest = strtolower($_GET['dest']);
-    // $command = escapeshellcmd('python3 /var/www/visa/' . $dest . '_visa.py ' . $fid);
+    $command = escapeshellcmd('python3 /var/www/visa/' . $dest . '_visa.py ' . $fid);
+    echo $command;
     // $output = shell_exec($command);
     // var_dump($output);
 ?>

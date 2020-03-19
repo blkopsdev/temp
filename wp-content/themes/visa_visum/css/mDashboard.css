@@ -755,7 +755,7 @@ a:hover {
     max-width: 100%;
 }
 
-.visa_comments .comments {
+.visa_comments .page-details {
     flex: 0 0 50%;
     max-width: 50%;
 }
@@ -789,8 +789,23 @@ a:hover {
     color: #454545;
 }
 
+.visa_comments .document_details_list {
+    height: auto;
+    padding: 25px;
+    box-shadow: 1px 3px 12px #eee;
+}
+.document_details_list table tbody {
+    border-top: 2px solid black;
+}
+.document_details_list table tbody tr {
+    box-shadow: none;
+}
+.document_details_list table tbody tr td {
+    padding: 15px 16px !important;
+}
 .visa_comments .comments_connect {
     height: 93%;
+    min-height: 70vh;
     padding: 25px;
     box-shadow: 1px 3px 12px #eee;
 }
@@ -1398,7 +1413,7 @@ a:hover {
         flex: 0 0 100%;
         max-width: 100%;
     }
-    .visa_comments .comments {
+    .visa_comments .page-details {
         flex: 0 0 100%;
         max-width: 100%;
     }
