@@ -135,7 +135,9 @@ function russia_form_submit_new($postData) {
 			'country' => 'Russia',
 			'purpose' => $postData['purpose'],
 			'transaction_id' => '',
-			'payment_status' => 'Action required'
+			'payment_status' => 'Action required',
+			'email_address' => $postData['email_address'],
+			'total_amount' => 0
 		];
 		$wpdb->insert( $common_db, $common_data );
 
