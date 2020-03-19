@@ -74,6 +74,7 @@ function russia_form_submit_new($postData) {
 					'employer_country_9_to_30' => $postData['traverler']['employer_country_9_to_30'][$j],
 					'employer_job_title_9_to_30' => $postData['traverler']['employer_job_title_9_to_30'][$j],
 					'employer_telephone_9_to_30' => $postData['traverler']['employer_telephone_9_to_30'][$j],
+					'employer_email_title_9_to_30' => $postData['traverler']['employer_email_title_9_to_30'][$j],
 					'family_member' => $postData['traverler']['family_member'][$j],
 					'family_birth_date' => $postData['traverler']['family_birth_date'][$j],
 					'family_relationship' => $postData['traverler']['family_relationship'][$j],

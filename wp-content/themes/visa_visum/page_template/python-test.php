@@ -11,8 +11,8 @@
 get_header();
 ?>
 <?php
-    $command = escapeshellcmd('python3 /var/www/html/test.py');
+    $command = escapeshellcmd('python3 /var/www/visa/russia_visa.py 6 en');
     $output = shell_exec($command);
-    var_dump($output);
+    print_r($output)
 ?>
 <?php get_footer(); ?>
