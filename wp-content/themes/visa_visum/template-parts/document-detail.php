@@ -14,7 +14,7 @@ if ($visa_destination == 'Russia') {
     $doc_path = $main_results[0]['pdfpath'];
     $doc_url = str_replace('/var/www/html', '', $doc_path);
     $doc_name = basename($doc_path) .PHP_EOL;
-    $created_date = date ("d F Y", filemtime($doc_path))
+    $created_date = date ("d F Y", filemtime($doc_path));
 ?>
 	    <h3>Documents</h3>
 	    <div class="document_details_list">

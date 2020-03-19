@@ -814,6 +814,7 @@ a:hover {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    padding: 5px;
 }
 
 .visa_comments .comments_connect .updated_system .comment_image {
