@@ -74,7 +74,6 @@ function russia_form_submit_new($postData) {
 					'employer_country_9_to_30' => $postData['traverler']['employer_country_9_to_30'][$j],
 					'employer_job_title_9_to_30' => $postData['traverler']['employer_job_title_9_to_30'][$j],
 					'employer_telephone_9_to_30' => $postData['traverler']['employer_telephone_9_to_30'][$j],
-					'employer_email_title_9_to_30' => $postData['traverler']['employer_email_title_9_to_30'][$j],
 					'family_member' => $postData['traverler']['family_member'][$j],
 					'family_birth_date' => $postData['traverler']['family_birth_date'][$j],
 					'family_relationship' => $postData['traverler']['family_relationship'][$j],
@@ -135,12 +134,14 @@ function russia_form_submit_new($postData) {
 			'country' => 'Russia',
 			'purpose' => $postData['purpose'],
 			'transaction_id' => '',
-			'payment_status' => 'Action required',
-			'email_address' => $postData['email_address'],
-			'total_amount' => 0
+			'payment_status' => 'Action required'
 		];
 		$wpdb->insert( $common_db, $common_data );
-
+		$lastInsertId = $wpdb->insert_id;  
+		if(isset($postData['form_fees']) && $postData['form_fees'] != ''){
+			$mredirectURL = site_url('thank-you');
+			matlaspayment($postData['form_fees'],$mredirectURL,$lastInsertId);
+		}
 		$wpdb->flush();
 	}
 	return true;	
