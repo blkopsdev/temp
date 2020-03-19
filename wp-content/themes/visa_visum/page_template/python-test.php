@@ -11,8 +11,10 @@
 get_header();
 ?>
 <?php
-    $command = escapeshellcmd('python /var/www/html/test.py');
-    $output = shell_exec($command);
-    var_dump($output);
+    $fid = $_GET['fid'];
+    $dest = strtolower($_GET['dest']);
+    // $command = escapeshellcmd('python3 /var/www/visa/' . $dest . '_visa.py ' . $fid);
+    // $output = shell_exec($command);
+    // var_dump($output);
 ?>
 <?php get_footer(); ?>

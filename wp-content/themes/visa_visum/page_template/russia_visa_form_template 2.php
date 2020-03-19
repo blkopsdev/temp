@@ -151,7 +151,10 @@ get_header();
 			<form method="post" class="visa_form_submit" enctype="multipart/form-data">
 				<div id="visa_travel-information" class="form_seprationSection">
 					<h3><?php echo __( 'Travel details', 'visachild' ); ?></h3>
-
+					
+					<input type="hidden" class="form-control" value="<?php if ( defined( 'ICL_LANGUAGE_CODE' ) ) { echo ICL_LANGUAGE_CODE; }?>" name="current_lang" id="current_lang" readonly="true" hidden>
+					
+					</div><!-- form-group -->
 					<div class="form-group row">
 						<label for="destination_country" class="vc_col-md-3 col-form-label"><?php echo __( 'Destination', 'visachild' ); ?></label>
 						<div class="vc_col-md-9">

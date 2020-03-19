@@ -14,15 +14,15 @@ $table = $wpdb->prefix."russia_visa_form_new";
 
  <div class="dashboard_top">
     <div class="left_logo">
-           <a href="#"><img src="/wp-content/uploads/2020/01/travel_image.png" alt="Travel Image"></a>
-        </div><!-- end of left_logo-->
-        <div class="top_bar">
-            <div class="right_bar">
-                <a href="#" class="notification"><img src="" alt=""></a>
-                <a href="#" class="logout"><span><i class="fa fa-sign-out" aria-hidden="true"></i></span>logout</a>
-            </div>
-        </div><!-- end of top_bar-->
-    </div><!-- end of dashboard_top-->
+        <a href="#"><img src="/wp-content/uploads/2020/01/travel_image.png" alt="Travel Image"></a>
+    </div><!-- end of left_logo-->
+    <div class="top_bar">
+        <div class="right_bar">
+            <a href="#" class="notification"><img src="" alt=""></a>
+            <a href="#" class="logout"><span><i class="fa fa-sign-out" aria-hidden="true"></i></span>logout</a>
+        </div>
+    </div><!-- end of top_bar-->
+</div><!-- end of dashboard_top-->
 
 <div class="dashboard" data-fid="<?php echo $_GET['fid']; ?>" data-dest="<?php echo $_GET['dest']; ?>" data-table="<?php echo $table; ?>">
 
@@ -58,7 +58,9 @@ $table = $wpdb->prefix."russia_visa_form_new";
                 <?php } ?>
             </ul>
         </div>
-
+        <div class="progress-bar">
+            <a href="/python?fid=<?php echo $_GET['fid'] ?>&dest=<?php echo $_GET['dest'] ?>&lang=en" id="progress-visa">Progress Visa</a>
+        </div>
         <div class="visa_comments">
         <?php if(isset($_GET['edit_visa']) && $_GET['edit_visa'] == 'yes'){ ?>
             <div class="visa_details full">
