@@ -135,15 +135,18 @@ function russia_form_submit_new($postData) {
 			'country' => 'Russia',
 			'purpose' => $postData['purpose'],
 			'transaction_id' => '',
-			'payment_status' => 'Action required',
-			'email_address' => $postData['email_address'],
-			'total_amount' => 0
+			'payment_status' => 'Action required'
 		];
 		$wpdb->insert( $common_db, $common_data );
 		$lastInsertId = $wpdb->insert_id;  
 		if(isset($postData['form_fees']) && $postData['form_fees'] != ''){
+<<<<<<< HEAD
 			$redirectURL = '/thank-you/';
 			matlaspayment($postData['form_fees'],$redirectURL,$lastInsertId);
+=======
+			$mredirectURL = site_url('thank-you');
+			matlaspayment($postData['form_fees'],$mredirectURL,$lastInsertId);
+>>>>>>> 53a0ad9613fc1a3ef72b248a2bf0c58edcfaead2
 		}
 		$wpdb->flush();
 	}
