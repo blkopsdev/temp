@@ -752,8 +752,7 @@ function matlaspageredirect(){
 }
 
 function matlaspayment($amt,$redirectURL,$oid){
-  require 'stripe/vendor/autoload.php';
-  $redirectURL = 'http://traveldocs.developstaging.com/thank-you/';
+  require 'stripe/vendor/autoload.php';  
   //Key setup
   $pk = 'pk_test_QWkN6RpWsoY4Um9ghpeRS3MF0012fh9liJ';
   $sk = 'sk_test_QBmeCFe50mT9BQvqQHZbLNWA00l7gwCZKB';
@@ -765,8 +764,6 @@ function matlaspayment($amt,$redirectURL,$oid){
   $matlascurrency = 'USD';
 
   if($matlascurrency == 'EUR'){ $mctype = ['card','ideal']; }else{ $mctype = ['card']; }
-  matlas($matlascurrency);
-  matlas($mctype);
   try{
       $session = \Stripe\Checkout\Session::create([
         'payment_method_types' => $mctype,
@@ -783,10 +780,7 @@ function matlaspayment($amt,$redirectURL,$oid){
         'cancel_url' => $redirectURL.'?session_id={CHECKOUT_SESSION_ID}',
       ]);
   } catch(Exception $e) {
-    echo '<pre>';
-      var_dump($e);
-    echo '</pre>';
-      echo '<center>There is some error with server please try again later or contact Admin.</center>';
+    echo '<center>There is some error with server please try again later or contact Admin.</center>';
   }
   ?>
   <script src="https://js.stripe.com/v3/"></script>
@@ -804,7 +798,7 @@ function matlaspayment($amt,$redirectURL,$oid){
 function matlaspaymentchecker($id){
   require 'stripe/vendor/autoload.php';
   global $wpdb;
-  $taximated_booking_entries = $wpdb->prefix . 'taximated_booking_entries';
+  $wp_common = $wpdb->prefix . 'common';
   //Key setup
   \Stripe\Stripe::setApiKey('sk_test_QBmeCFe50mT9BQvqQHZbLNWA00l7gwCZKB');
   $pubkey = 'pk_test_QWkN6RpWsoY4Um9ghpeRS3MF0012fh9liJ';
@@ -817,9 +811,17 @@ function matlaspaymentchecker($id){
               $tmp = \Stripe\PaymentMethod::retrieve($retrivePayment->payment_method);
               $pcardt .= $tmp->type;
           }
+        /*--- Update Database ---*/  
+        $transaction_id = $retriveSession->payment_intent;
+        $payment_status = 'payment success';
+        $fid = $retriveSession->metadata->order_id;
+        $data = ['payment_mod' => $pcardt,'payment_status' => $payment_status,'transaction_id' => $transaction_id];
+        $where = [ 'id' => $fid ];
+        $wpdb->update( $wp_common, $data, $where );
+      }else{
+        echo 'Please contact admin your payment have a issue';
       }
-  }
-  matlas($pcardt);
+  }  
 }
 
 if (function_exists('icl_register_string')) {
