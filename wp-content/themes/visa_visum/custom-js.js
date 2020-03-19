@@ -1,6 +1,6 @@
 var numeberOfTraverler = 0;
 jQuery( document ).ready(function($) {
-	jQuery('select[name ="destination"]').on('change', function(){
+	/*jQuery('select[name ="destination"]').on('change', function(){
 		var matlas = $(this).closest('.need_a_visa');
 		jQuery("#purpose").html('');
 		jQuery('#purpose').prepend(jQuery('<option></option>').html('Loading...'));
@@ -36,7 +36,7 @@ jQuery( document ).ready(function($) {
 			matlas.find("select[name ='purpose']").html('');
 			matlas.find("select[name ='purpose']").append(jQuery("<option/>").val('').text('Select Purpose'));
 		}
-	});
+	});*/
 	/*--- Matlas ---*/
 	/*$('.row').each(function(){
         var highestBox = 0;
@@ -54,8 +54,8 @@ jQuery( document ).ready(function($) {
 		var matlas = $(this).closest('.need_a_visa');
 		var destination_id = matlas.find('select[name ="destination"]').find(":selected").val();
 		var destination = matlas.find('select[name ="destination"] option:selected').text();
-		var purpose_id = matlas.find('select[name ="purpose"]').find(":selected").val();
-		if(destination_id > 0 && purpose_id > 0 ){
+		//var purpose_id = matlas.find('select[name ="purpose"]').find(":selected").val();
+		if(destination_id > 0){
 			jQuery.ajax({
 				type: "GET",
 				url: myAjax.ajax_url,
@@ -63,7 +63,6 @@ jQuery( document ).ready(function($) {
 				data : {
 					action : 'get_destination_post',
 					destination_id : destination_id,
-					purpose_id : purpose_id,
 				},
 				success: function(result){
 					if(result.success && result.url !== ''){
@@ -114,20 +113,17 @@ function addMoreTraverler() {
 	// jQuery("#traveler_info").clone().appendTo("#visa_travel_details-information");
 	let existingTraverler = this.dataset.total;
 
-	if (this.dataset.total == 0) {
-		existingTraverler = 1;
-	}
+	if (this.dataset.total == 0) { existingTraverler = 1; }
 	const original = document.getElementById('traveler_info_' + (existingTraverler - 1));
 	const clickSection = document.getElementById('add_travelers-section');
 	const clone = original.cloneNode(true);
 	clone.id = "traveler_info_" + existingTraverler;
-
 	const queryAttr = ['nationality', 'first_name', 'surname', 'date_birth'];
 	clone.querySelector('#traveler_id_'+ (existingTraverler - 1)).setAttribute('id', 'traveler_id_' + existingTraverler );
 	clone.querySelector('#traveler_id_' + existingTraverler).innerHTML = "Traveler " + (parseInt(existingTraverler, 10) + 1) + "<span onclick='removeTraverler("+ parseInt(existingTraverler, 10) +")' > Remove Traveler " + (parseInt(existingTraverler, 10) + 1) + "</span>";
 	queryAttr.map(attrset => {
-		clone.querySelector('label[for="traverler_'+ attrset + '_' + (existingTraverler - 1) + '"]').setAttribute('for', 'traverler_'+ attrset + '_' + existingTraverler );
-		// clone.querySelector('#traverler_'+ attrset + '_0').setAttribute('name', 'traverler[' + existingTraverler + ']['+ attrset + ']' );
+		//clone.querySelector('label[for="traverler_'+ attrset + '_' + (existingTraverler - 1) + '"]').setAttribute('for', 'traverler_'+ attrset + '_' + existingTraverler );
+		clone.querySelector('#traverler_'+ attrset + '_0').setAttribute('name', 'traverler[' + existingTraverler + ']['+ attrset + ']' );
 		clone.querySelector('#traverler_'+ attrset + '_' + (existingTraverler - 1)).setAttribute('id', 'traverler_'+ attrset + '_' + existingTraverler);
 	});
 	existingTraverler++
@@ -270,3 +266,10 @@ function removePlace(id) {
 	document.getElementById("add_place_info_button").dataset.total = parseInt(buttonDataValue, 10) - 1;
 
 }
+
+
+jQuery(document).ready(function(){
+jQuery(".legalisatie-button").click(function(){
+  jQuery(".legalisatie-form-section").toggle();
+});
+});
