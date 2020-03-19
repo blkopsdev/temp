@@ -158,8 +158,8 @@ a:hover {
 }
 
 .dashboard .left_dash {
-    flex: 0 0 350px;
-    max-width: 350px;
+    flex: 0 0 180px;
+    max-width: 180px;
     padding: 0px;
     box-shadow: 0 4px 8px #e3e3e3;
 }
@@ -195,8 +195,8 @@ a:hover {
 }
 
 .dashboard .right_dash {
-    flex: 0 0 calc(100% - 350px);
-    max-width: calc(100% - 350px);
+    flex: 0 0 calc(100% - 180px);
+    max-width: calc(100% - 180px);
     /* padding: 15px; */
     /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
 }
@@ -478,6 +478,22 @@ a:hover {
     color: #aaa;
 }
 
+.dashboard .right_dash #example .filter_header {
+    background: #7F63F4;
+}
+
+.dashboard .right_dash #example .filter_header select {
+    background-color: transparent;
+    border: none;
+    /* -webkit-appearance: none; */
+    color: #fff;
+    cursor: pointer;
+}
+
+.dashboard .right_dash #example .filter_header select option {
+    color: #000;
+}
+
 
 /* .dashboard .right_dash #example .view:after {
     content: "\f06e";
@@ -628,7 +644,7 @@ a:hover {
     background-image: url(../images/bg_image.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-    padding-bottom: 65px;
+    padding: 65px;
 }
 
 .dashboard table.dataTable.stripe tbody tr.odd,
@@ -720,6 +736,12 @@ a:hover {
     margin-right: 45px;
 }
 
+.visa_comments .visa_details.full {
+    flex: unset;
+    width: 100%;
+    max-width: 100%;
+}
+
 .visa_comments .comments {
     flex: 0 0 50%;
     max-width: 50%;
@@ -732,6 +754,11 @@ a:hover {
     margin-bottom: 17px;
     padding: 0 19px;
     font-size: 16px;
+}
+
+.visa_comments .visa_details .visa_details_list .visa_detailing h4+input {
+    width: calc(100% - 180px);
+    padding: 10px;
 }
 
 .visa_comments .visa_details .visa_details_list .visa_detailing:last-child {
@@ -1185,6 +1212,10 @@ a:hover {
     font-weight: 600;
 }
 
+.dashboard .right_dash .table-responsive table tr td {
+    white-space: initial;
+}
+
 
 /* media query */
 
@@ -1200,11 +1231,22 @@ a:hover {
     }
 }
 
-@media (max-width:1300px) {
-    .dashboard .right_dash #example {
-        width: 1200px !important;
-        max-width: inherit;
+@media (min-width:1200px) and (max-width:1400px) {
+    .dashboard table tbody td {
+        padding: 11px !important;
     }
+    .dashboard table.dataTable thead th {
+        padding: 30px 6px;
+    }
+    .dashboard table.dataTable thead th {
+        font-size: 14px;
+    }
+    .dashboard table.dataTable.display tbody td {
+        font-size: 14px;
+    }
+}
+
+@media (max-width:1300px) {
     .visa_comments .visa_details {
         margin-right: 32px;
     }
@@ -1216,6 +1258,13 @@ a:hover {
     }
     .top_partners .total_sales_graph .graph_readings ul li p {
         font-size: 16px;
+    }
+}
+
+@media (max-width:1200px) {
+    .dashboard .right_dash #example {
+        width: 1200px !important;
+        max-width: inherit;
     }
 }
 
@@ -1443,6 +1492,17 @@ a:hover {
     }
     .stats_container ul.date_filter li input,
     .stats_container ul.date_filter li .drop_buttons button {
+        width: 100%;
+    }
+    .visa_comments .visa_details .visa_details_list .visa_detailing {
+        display: block;
+        padding: 29px 19px;
+    }
+    .visa_comments .visa_details .visa_details_list .visa_detailing h4 {
+        width: 100%;
+        margin-top: 0;
+    }
+    .visa_comments .visa_details .visa_details_list .visa_detailing h4+input {
         width: 100%;
     }
 }

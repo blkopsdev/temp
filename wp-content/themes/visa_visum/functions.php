@@ -123,15 +123,15 @@ add_action("wp_ajax_nopriv_get_destinations", "my_get_destinations");
 function get_destination_post() {
 	$result = array();
 	$result['success'] = false;
-	if(isset($_REQUEST['destination_id']) && !empty($_REQUEST['destination_id'])&& isset($_REQUEST['purpose_id']) && !empty($_REQUEST['purpose_id'])){
+	if(isset($_REQUEST['destination_id']) && !empty($_REQUEST['destination_id'])){
 		$destination_id = $_REQUEST['destination_id'];
-		$purpose_id = $_REQUEST['purpose_id'];
+		//$purpose_id = $_REQUEST['purpose_id'];
 
 		global $wpdb;
 		$user_travel_purpose = $wpdb->prefix."travel_purpose";
 		$user_destination = $wpdb->prefix."user_destination";
 
-		$qry = "SELECT ud.destination_id FROM $user_travel_purpose tp inner join $user_destination ud on tp.id = ud.purpose_id WHERE ud.nationality_id = $destination_id AND tp.id = $purpose_id";
+		$qry = "SELECT ud.destination_id FROM $user_travel_purpose tp inner join $user_destination ud on tp.id = ud.purpose_id WHERE ud.nationality_id = $destination_id";
 
 		$destPostQuery = $wpdb->get_results( $qry , ARRAY_A);
 
@@ -153,16 +153,16 @@ add_action("wp_ajax_nopriv_travel_purpose_table_edit", "none_login_user");
 
 function travel_purpose_table_edit() {
 
-  if ( !wp_verify_nonce( $_REQUEST['nonce'], "travel_purpose_table_edit_nonce")) {
-    exit("No naughty business please");
-  }
-  global $wpdb;
-  $travel_purpose_table = $wpdb->prefix."travel_purpose";
-  $postID = $_POST['post_id'];
-  $selectQuery = $wpdb->get_results("SELECT * FROM $travel_purpose_table WHERE id = $postID");
-  $result = json_encode($selectQuery);
-  echo $result;
-  die();
+   if ( !wp_verify_nonce( $_REQUEST['nonce'], "travel_purpose_table_edit_nonce")) {
+      exit("No naughty business please");
+   }
+   global $wpdb;
+   $travel_purpose_table = $wpdb->prefix."travel_purpose";
+   $postID = $_POST['post_id'];
+   $selectQuery = $wpdb->get_results("SELECT * FROM $travel_purpose_table WHERE id = $postID");
+   $result = json_encode($selectQuery);
+   echo $result;
+   die();
 }
 
 add_action("wp_ajax_travel_purpose_table_delete", "travel_purpose_table_delete");
@@ -170,16 +170,16 @@ add_action("wp_ajax_nopriv_travel_purpose_table_delete", "none_login_user");
 
 function travel_purpose_table_delete() {
 
-  if ( !wp_verify_nonce( $_REQUEST['nonce'], "travel_purpose_table_delete_nonce")) {
-    exit("No naughty business please");
-  }
-  global $wpdb;
-  $travel_purpose_table = $wpdb->prefix."travel_purpose";
-  $postID = $_POST['post_id'];
-  $selectQuery = $wpdb->delete( $travel_purpose_table, array( 'id' =>  $_POST['post_id'] ) );
-  $result = json_encode($selectQuery);
-  echo $result;
-  die();
+   if ( !wp_verify_nonce( $_REQUEST['nonce'], "travel_purpose_table_delete_nonce")) {
+      exit("No naughty business please");
+   }
+   global $wpdb;
+   $travel_purpose_table = $wpdb->prefix."travel_purpose";
+   $postID = $_POST['post_id'];
+   $selectQuery = $wpdb->delete( $travel_purpose_table, array( 'id' =>  $_POST['post_id'] ) );
+   $result = json_encode($selectQuery);
+   echo $result;
+   die();
 }
 
 add_action("wp_ajax_user_nationality_table_edit", "user_nationality_table_edit");
@@ -187,39 +187,40 @@ add_action("wp_ajax_nopriv_user_nationality_table_edit", "none_login_user");
 
 function user_nationality_table_edit() {
 
-  if ( !wp_verify_nonce( $_REQUEST['nonce'], "user_nationality_table_edit_nonce")) {
-    exit("No naughty business please");
-  }
-  global $wpdb;
-  $user_nationality_table = $wpdb->prefix."user_nationality";
-  $postID = $_POST['post_id'];
-  $selectQuery = $wpdb->get_results("SELECT * FROM $user_nationality_table WHERE id = $postID");
-  $result = json_encode($selectQuery);
-  echo $result;
-  die();
+   if ( !wp_verify_nonce( $_REQUEST['nonce'], "user_nationality_table_edit_nonce")) {
+      exit("No naughty business please");
+   }
+   global $wpdb;
+   $user_nationality_table = $wpdb->prefix."user_nationality";
+   $postID = $_POST['post_id'];
+   $selectQuery = $wpdb->get_results("SELECT * FROM $user_nationality_table WHERE id = $postID");
+   $result = json_encode($selectQuery);
+   echo $result;
+   die();
 }
 
 add_action("wp_ajax_user_nationality_table_delete", "user_nationality_table_delete");
 add_action("wp_ajax_nopriv_user_nationality_table_delete", "none_login_user");
 
 function user_nationality_table_delete() {
-  if ( !wp_verify_nonce( $_REQUEST['nonce'], "user_nationality_table_delete_nonce")) {
-    exit("No naughty business please");
-  }
-  global $wpdb;
-  $user_nationality_table = $wpdb->prefix."user_nationality";
-  $postID = $_POST['post_id'];
-  $selectQuery = $wpdb->delete( $user_nationality_table, array( 'id' =>  $_POST['post_id'] ) );
-  $result = json_encode($selectQuery);
-  echo $result;
-  die();
+
+   if ( !wp_verify_nonce( $_REQUEST['nonce'], "user_nationality_table_delete_nonce")) {
+      exit("No naughty business please");
+   }
+   global $wpdb;
+   $user_nationality_table = $wpdb->prefix."user_nationality";
+   $postID = $_POST['post_id'];
+   $selectQuery = $wpdb->delete( $user_nationality_table, array( 'id' =>  $_POST['post_id'] ) );
+   $result = json_encode($selectQuery);
+   echo $result;
+   die();
 }
 
 function get_list_countries() {
-  global $wpdb;
-  $countries_table = $wpdb->prefix."countries";
-  $countries = $wpdb->get_results("SELECT * FROM $countries_table");
-  return $countries;
+   global $wpdb;
+   $countries_table = $wpdb->prefix."countries";
+   $countries = $wpdb->get_results("SELECT * FROM $countries_table");
+   return $countries;
 }
 
 require_once get_stylesheet_directory() . "/inc/travelDB.php"; // create table
@@ -660,7 +661,7 @@ function ajax_login_init(){
   wp_enqueue_script('ajax-login-script');
   wp_localize_script( 'ajax-login-script', 'ajax_login_object', array(
     'ajaxurl' => admin_url( 'admin-ajax.php' ),
-    'redirecturl' => home_url(),
+    'redirecturl' => site_url('m-dashboard'),
     'loadingmessage' => __('Sending user info, please wait...')
   ));
 }
@@ -684,3 +685,160 @@ if (!is_user_logged_in()) {
   die();
 }
 /*----- Matlas Ajax login -----*/
+function matlas($arg){
+  echo '<pre>';
+    var_dump($arg);
+  echo '</pre>';
+}
+
+add_action('wp_ajax_nopriv_mtlasupdatefield','mtlasupdatefield');
+add_action('wp_ajax_mtlasupdatefield','mtlasupdatefield');
+function mtlasupdatefield(){
+  if(isset($_REQUEST['fid']) && $_REQUEST['fid'] != '' && isset($_REQUEST['dest']) && $_REQUEST['dest'] != '' && isset($_REQUEST['status']) && $_REQUEST['status'] != '')
+  {
+    global $wpdb;
+    $fid = $_REQUEST['fid'];
+    $dest = $_REQUEST['dest'];
+    $status = $_REQUEST['status'];
+    switch ($dest) {
+      case 'Russia':
+        $main_table = $wpdb->prefix.'russia_visa_form_new';
+        break;
+      default:
+        $main_table = $wpdb->prefix.'russia_visa_form_new';
+        break;
+    }
+    //--- Update Status---
+    $data = ['final_status' => $status];
+    $where = [ 'ID' => $fid ];
+    echo $wpdb->update( $main_table, $data, $where );
+  }else{
+    echo -1;
+  }
+  die();
+}
+
+function mtlasgetfield($wid,$widval,$table,$field){
+  global $wpdb;
+  $mylink = $wpdb->get_row( "SELECT $field FROM $table WHERE $wid = $widval" );
+  return $mylink->$field;
+}
+
+add_action('wp_ajax_nopriv_mtlasdeleterow','mtlasdeleterow');
+add_action('wp_ajax_mtlasdeleterow','mtlasdeleterow');
+function mtlasdeleterow(){
+  global $wpdb;
+  $cond = $_REQUEST['where'];
+  $field = $_REQUEST['field'];
+  $table = $_REQUEST['table'];
+  $where = array($field => $cond);
+  echo $wpdb->delete($table, $where );
+  die();
+}
+
+add_action('template_redirect','matlaspageredirect');
+function matlaspageredirect(){
+  if(is_user_logged_in()){
+    if(is_page('m-login')){
+      wp_redirect(site_url('m-dashboard'), 301 );
+      exit;
+    }
+  }else{
+    if(is_page('m-visa-order-details') || is_page('m-statistics') || is_page('m-dashboard')){
+      wp_redirect(site_url('m-login'), 301 );
+      exit;
+    }
+  }
+}
+
+function matlaspayment($amt,$redirectURL,$oid){
+  require 'stripe/vendor/autoload.php';
+  $redirectURL = 'http://traveldocs.developstaging.com/thank-you/';
+  //Key setup
+  $pk = 'pk_test_QWkN6RpWsoY4Um9ghpeRS3MF0012fh9liJ';
+  $sk = 'sk_test_QBmeCFe50mT9BQvqQHZbLNWA00l7gwCZKB';
+  \Stripe\Stripe::setApiKey($sk);
+  $pubkey = $pk;
+  // Based on stripeToken working on it.
+  $order_id = $oid;
+  $amount = (int)($amt * 100);
+  $matlascurrency = 'USD';
+
+  if($matlascurrency == 'EUR'){ $mctype = ['card','ideal']; }else{ $mctype = ['card']; }
+  matlas($matlascurrency);
+  matlas($mctype);
+  try{
+      $session = \Stripe\Checkout\Session::create([
+        'payment_method_types' => $mctype,
+        'line_items' => [[
+          'name' => 'Book Taxi',
+          'description' => 'Book Taxi Desc',
+          'images' => ['https://example.com/t-shirt.png'],
+          'amount' =>  $amount,
+          'currency' => $matlascurrency,
+          'quantity' => 1,
+        ]],
+        'metadata' => [ 'order_id' => $order_id ],
+        'success_url' => $redirectURL.'?session_id={CHECKOUT_SESSION_ID}',
+        'cancel_url' => $redirectURL.'?session_id={CHECKOUT_SESSION_ID}',
+      ]);
+  } catch(Exception $e) {
+    echo '<pre>';
+      var_dump($e);
+    echo '</pre>';
+      echo '<center>There is some error with server please try again later or contact Admin.</center>';
+  }
+  ?>
+  <script src="https://js.stripe.com/v3/"></script>
+  <form action="stripe_pay_checkout_demo.php" method="POST" id="payment-form"></form>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+      $(window).on( "load", function(){ callstrippayment('<?php echo $session->id; ?>'); });
+      function callstrippayment(id){
+          var stripe = Stripe('<?php echo $pk; ?>');
+          var elements = stripe.elements();
+          stripe.redirectToCheckout({sessionId: id}).then(function(result) { console.log(result); });
+      }
+  </script>
+<?php }
+function matlaspaymentchecker($id){
+  require 'stripe/vendor/autoload.php';
+  global $wpdb;
+  $taximated_booking_entries = $wpdb->prefix . 'taximated_booking_entries';
+  //Key setup
+  \Stripe\Stripe::setApiKey('sk_test_QBmeCFe50mT9BQvqQHZbLNWA00l7gwCZKB');
+  $pubkey = 'pk_test_QWkN6RpWsoY4Um9ghpeRS3MF0012fh9liJ';
+  $pcardt = 'Strip / ';
+  if(isset($id)){
+      $retriveSession = \Stripe\Checkout\Session::retrieve($id);
+      if($retriveSession && $retriveSession->payment_intent){
+          $retrivePayment = \Stripe\PaymentIntent::retrieve($retriveSession->payment_intent,['expand' => 'payment_method']);
+          if($retrivePayment && $retrivePayment->payment_method){
+              $tmp = \Stripe\PaymentMethod::retrieve($retrivePayment->payment_method);
+              $pcardt .= $tmp->type;
+          }
+      }
+  }
+  matlas($pcardt);
+}
+
+if (function_exists('icl_register_string')) {
+  global $wpdb;
+  $user_nationality = $wpdb->prefix.'user_nationality';
+  $sql = "select `country` from ".$user_nationality;
+  $main_results = $wpdb->get_results($sql,ARRAY_A);
+  for ($mr = 0; $mr < sizeof($main_results); $mr++){
+    foreach ($main_results[$mr] as $key => $value){
+      icl_register_string('visachild', '', $value, $value);
+    }
+  }
+
+  $countries = $wpdb->prefix.'countries';
+  $sqlc = "select `name` from ".$countries;
+  $main_resultsc = $wpdb->get_results($sqlc,ARRAY_A);
+  for ($mr = 0; $mr < sizeof($main_resultsc); $mr++){
+    foreach ($main_resultsc[$mr] as $key => $value){
+      icl_register_string('visachild', '', $value, $value);
+    }
+  } 
+}

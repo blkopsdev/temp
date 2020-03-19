@@ -10,7 +10,7 @@
 $indonesia_nonce = wp_create_nonce('indonesia_form_nonce');
 $formSubmit = '';
 $cntTraveller = 1;
-$redirectURL = '/thank-you/';
+$redirectURL = 'http://traveldocs.developstaging.com/thank-you/';
 $isError = false;
 if (isset($_GET['purpose']) && $_GET['purpose'] != '') {
 	$visa_purpose = ucfirst($_GET['purpose']);
@@ -31,8 +31,24 @@ get_header();
 		echo $outHtml;
 	}
 	?>
+	<!-- Matlas -->
 	<div class="row">
-		<div class="col-md-8">
+		<div class="col-md-12" style="margin-bottom: 40px !important;">
+	        <ul class="process-steps process-2 clearfix">
+	            <li class=" active">
+	                <a href="#" class="i-bordered i-circled divcenter"><i class="fa fa-wpforms" aria-hidden="true"></i></a>
+	                <h5>1. Gegevens invullen</h5>
+	            </li>
+	            <li class="">
+	                <a href="javascript:jQuery('#order-form').submit(); return false;" class="i-bordered i-circled divcenter"><i class="fa fa-check" aria-hidden="true"></i></a>
+	                <h5>2. Controle en betaling</h5>
+	            </li>
+	        </ul>
+	    </div>
+	</div>
+	<!-- Matlas -->
+	<div class="row backgrouddark">
+		<div class="col-md-8 matlasform mequalheight"  id="matlascontent">
 			<form method="post" id="indonesia_visa_form" class="visa_form_submit" enctype="multipart/form-data">
 				<div id="visa_travel-information" class="form_seprationSection">
 					<h3><?php echo __( 'Travel details', 'visachild' ); ?></h3>
@@ -48,10 +64,24 @@ get_header();
 						<label for="nationality" class="vc_col-md-3 col-form-label"><?php echo __( 'Nationality', 'visachild' ); ?></label>
 						<div class="vc_col-md-9">
 							<select name="nationality" id="nationality">
+									<option value="Belgium">Belgium</option>
+									<option value="Denmark">Denmark</option>
+									<option value="Germany">Germany</option>
+									<option value="Finland">Finland</option>
+									<option value="France">France</option>
+									<option value="Netherlands">Netherlands</option>
+									<option value="Norway">Norway</option>
+									<option value="Austria">Austria</option>
+									<option value="Slovakia">Slovakia</option>
+									<option value="Spain">Spain</option>
+									<option value="United Kingdom">United Kingdom</option>
+									<option value="United States">United States</option>
+									<option value="Sweden">Sweden</option>
+									<option value="---" disabled="">------------------------------------------</option>
 								<?php
 									if(!empty(get_list_countries())){
 										foreach(get_list_countries() as $country){?>
-										<option value="<?php echo $country->name;?>" <?php echo 'NL' == $country->name ? 'selected' : ''; ?>><?php echo $country->name;?></option>
+										<option value="<?php echo $country->country_code;?>" <?php echo 'NL' == $country->country_code ? 'selected' : ''; ?>><?php echo $country->name;?></option>
 									<?php } } ?>
 							</select>
 						</div>
@@ -60,9 +90,13 @@ get_header();
 					<div class="form-group row">
 						<label for="purpose" class="vc_col-md-3 col-form-label"><?php echo __( 'Purpose', 'visachild' ); ?></label>
 						<div class="vc_col-md-9">
-							<input type="text" class="form-control" value="<?php echo isset($visa_purpose) ? $visa_purpose : 'Tourism'; ?>" name="purpose" id="purpose" readonly="true">
+							<!-- <input type="text" class="form-control" value="<?php // echo isset($visa_purpose) ? $visa_purpose : 'Tourism'; ?>" name="purpose" id="purpose" readonly="true"> -->
+							<select name="purpose" id="purpose">
+								<option value="Tourism" <?php echo (isset($visa_purpose) == 'Tourism') ? 'selected' : ''; ?>><?php echo __('Tourism', 'visachild') ?></option>
+								<option value="Business" <?php echo (isset($visa_purpose) == 'Business') ? 'selected' : ''; ?>><?php echo __('Business', 'visachild') ?></option>
+							</select>
 							<span class="validate_error"><?php echo isset($purposeErr) ? $purposeErr : ''; ?></span>
-							<span><a id="change_purpose" href="#purpose_modal" class="trigger-btn" data-toggle="modal">change</a></span>
+							<!-- <span><a id="change_purpose" href="#purpose_modal" class="trigger-btn" data-toggle="modal">change</a></span> -->
 						</div>
 						<!-- Modal HTML -->
 						<div id="purpose_modal" class="modal fade">
@@ -76,7 +110,7 @@ get_header();
 										<p>You must enter all the details again..</p>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+										<button id="cancel_purpose_btn" type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
 										<button type="button" class="btn btn-success" id="change_purpose_btn">Yes proceed</button>
 									</div>
 								</div>
@@ -141,7 +175,6 @@ get_header();
 								<span class="validate_error"><?php echo isset($phoneErr) ? $phoneErr : ''; ?></span>
 							</div>
 						</div><!-- form-group -->
-
 					</div>
 					<div id="visa_adres-information" class="form_seprationSection">
 						<h3><?php echo __( 'Address', 'visachild' ); ?></h3>
@@ -164,11 +197,11 @@ get_header();
 									<option value="United Kingdom">United Kingdom</option>
 									<option value="United States">United States</option>
 									<option value="Sweden">Sweden</option>
-									<option value="---" disabled="">--------------------------------------------</option>
+									<option value="---" disabled="">------------------------------------------</option>
 									<?php
 									if(!empty(get_list_countries())){
 										foreach(get_list_countries() as $country){?>
-										<option value="<?php echo $country->name;?>" <?php echo 'Netherlands' == $country->name ? 'selected' : ''; ?>><?php echo $country->name;?></option>
+										<option value="<?php echo $country->country_code;?>" <?php echo 'NL' == $country->country_code ? 'selected' : ''; ?>><?php echo $country->name;?></option>
 									<?php } } ?>
 								</select>
 								<span class="validate_error"><?php echo isset($countryErr) ? $countryErr : ''; ?></span>
@@ -240,24 +273,41 @@ get_header();
 						<h3><?php echo __( 'Residence', 'visachild' ); ?></h3>
 						<p><?php echo __( 'Enter the details of your (first) place of residence below. You must enter the name of the hotel, the street and the place.' ); ?></p>
 						<div class="form-group row">
-							<label for="residence_street_name_house_no" class="vc_col-md-3 col-form-label"><?php echo __( 'Street Name + House No', 'visachild' ); ?></label>
+							<label for="name_of_sponsor_in_indonesia" class="vc_col-md-3 col-form-label"><?php echo __( 'Name of Sponsor/Refrence in Indonesia', 'visachild' ); ?></label>
 							<div class="vc_col-md-9">
-								<input type="text" class="form-control" value="<?php echo isset($residence_street_name_house_no) ? $residence_street_name_house_no : ''; ?>" name="residence_street_name_house_no" id="residence_street_name_house_no">
+								<input type="text" class="form-control" value="<?php echo isset($name_of_sponsor_in_indonesia) ? $name_of_sponsor_in_indonesia : ''; ?>" name="name_of_sponsor_in_indonesia" id="name_of_sponsor_in_indonesia">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="residence_phone_no" class="vc_col-md-3 col-form-label"><?php echo __( 'Phone Number', 'visachild' ); ?></label>
+							<label for="address_of_sponsor_in_indonesia" class="vc_col-md-3 col-form-label"><?php echo __( 'Address Of Sponsor/Refrence in Indonesia', 'visachild' ); ?></label>
 							<div class="vc_col-md-9">
-								<input type="text" class="form-control" value="<?php echo isset($residence_phone_no) ? $residence_phone_no : ''; ?>" name="residence_phone_no" id="residence_phone_no"  placeholder="+316123456789">
+								<input type="text" class="form-control" value="<?php echo isset($address_of_sponsor_in_indonesia) ? $address_of_sponsor_in_indonesia : ''; ?>" name="address_of_sponsor_in_indonesia" id="address_of_sponsor_in_indonesia">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="point_of_entry" class="vc_col-md-3 col-form-label"><?php echo __( 'Point of entry in Indonesia', 'visachild' ); ?></label>
+							<label for="telephone_number_of_sponsor_in_indonesia" class="vc_col-md-3 col-form-label"><?php echo __( 'Telephone number of Sponsor/Refrence in Indonesia', 'visachild' ); ?></label>
 							<div class="vc_col-md-9">
-								<input type="phone" class="form-control" value="<?php echo isset($telephone) ? $telephone : ''; ?>" name="residence_point_of_entry" id="point_of_entry" placeholder="E.g. Jakarta">
-								<span class="validate_error"><?php echo isset($pointOfEntryErr) ? $pointOfEntryErr : ''; ?></span>
+								<input type="text" class="form-control" value="<?php echo isset($telephone_number_of_sponsor_in_indonesia) ? $telephone_number_of_sponsor_in_indonesia : ''; ?>" name="telephone_number_of_sponsor_in_indonesia" id="telephone_number_of_sponsor_in_indonesia"  placeholder="+316123456789">
 							</div>
-						</div><!-- form-group -->
+						</div>
+						<div class="form-group row">
+							<label for="point_of_entery_in_indonesia" class="vc_col-md-3 col-form-label"><?php echo __( 'Point of entery in Indonesia', 'visachild' ); ?></label>
+							<div class="vc_col-md-9">
+								<input type="text" class="form-control" value="<?php echo isset($point_of_entery_in_indonesia) ? $point_of_entery_in_indonesia : ''; ?>" name="point_of_entery_in_indonesia" id="point_of_entery_in_indonesia">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="address_of_recendence_in_indonesia" class="vc_col-md-3 col-form-label"><?php echo __( 'Address of residence in Indonesia', 'visachild' ); ?></label>
+							<div class="vc_col-md-9">
+								<input type="text" class="form-control" value="<?php echo isset($address_of_recendence_in_indonesia) ? $address_of_recendence_in_indonesia : ''; ?>" name="address_of_recendence_in_indonesia" id="address_of_recendence_in_indonesia">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="telephone_number_of_residence_in_indonesia" class="vc_col-md-3 col-form-label"><?php echo __( 'Telephone number of residence in Indonesia', 'visachild' ); ?></label>
+							<div class="vc_col-md-9">
+								<input type="text" class="form-control" value="<?php echo isset($telephone_number_of_residence_in_indonesia) ? $telephone_number_of_residence_in_indonesia : ''; ?>" name="telephone_number_of_residence_in_indonesia" id="telephone_number_of_residence_in_indonesia"  placeholder="+316123456789">
+							</div>
+						</div>
 
 						<h3><?php echo __( 'Shipping Method', 'visachild' ); ?></h3>
 						<p><?php echo __( 'Select the way in which you want to send the passport to us (shipping method) and how you want to receive the passport (return method).', 'visachild' ); ?></p>
@@ -265,8 +315,8 @@ get_header();
 							<label for="shipping_method" class="vc_col-md-3 col-form-label"><?php echo __( 'Shipping Method', 'visachild' ); ?></label>
 							<div class="vc_col-md-9">
 								<select name="shipping_method" id="shipping_method">
-									<option value="" <?php echo (isset($shipping_method) == '') ? 'selected' : ''; ?> data-price='0'>Select Send Method ...
-									</option>
+								    <option value="" <?php echo (isset($shipping_method) == '') ? 'selected' : ''; ?> data-price='0'>Select Send Method ...
+								    </option>
 									<option value="OC12"<?php echo (isset($shipping_method) == 'OC12') ? 'selected' : ''; ?> data-price='44.95'>Courier next business day before 12:00 (€ 44.95)</option>
 									<option value="OC17"<?php echo (isset($shipping_method) == 'OC17') ? 'selected' : ''; ?> data-price='34.95'>Courier next business day before 5:00 PM (€ 34.95)</option>
 									<option value="DROPOFF"<?php echo (isset($shipping_method) == 'DROPOFF') ? 'selected' : ''; ?>data-price='0'>Deliver yourself in Rotterdam</option>
@@ -279,14 +329,14 @@ get_header();
 							<label for="return_method" class="vc_col-md-3 col-form-label"><?php echo __( 'Return Method', 'visachild' ); ?></label>
 							<div class="vc_col-md-9">
 								<select name="return_method" id="return_method">
-									<option value="" <?php echo (isset($Return_method) == '') ? 'selected' : ''; ?> data-price='0'>Select Return Method ...</option>
-									<option value="AVIA" <?php echo (isset($Return_method) == 'AVIA') ? 'selected' : ''; ?> data-price='69.95'>Avia partner desk (€ 69.95)</option>
-									<option value="REGISTERED_MAIL" <?php echo (isset($Return_method) == 'REGISTERED_MAIL') ? 'selected' : ''; ?> data-price='18.15'>Warranty post 2 working days (€ 18.15)
-									</option>
-									<option value="OC12" <?php echo (isset($Return_method) == 'OC12') ? 'selected' : ''; ?> data-price='44.95'>Courier next business day before 12:00 (€ 44.95)</option>
-									<option value="OC17" <?php echo (isset($Return_method) == 'OC17') ? 'selected' : ''; ?> data-price='34.95'>Courier next business day before 5:00 PM (€ 34.95)
-									</option>
-									<option value="PICKUP" <?php echo (isset($Return_method) == 'PICKUP') ? 'selected' : ''; ?> data-price='0'>Pick up yourself in Rotterdam</option>
+								    <option value="" <?php echo (isset($Return_method) == '') ? 'selected' : ''; ?> data-price='0'>Select Return Method ...</option>
+								    <option value="AVIA" <?php echo (isset($Return_method) == 'AVIA') ? 'selected' : ''; ?> data-price='69.95'>Avia partner desk (€ 69.95)</option>
+								    <option value="REGISTERED_MAIL" <?php echo (isset($Return_method) == 'REGISTERED_MAIL') ? 'selected' : ''; ?> data-price='18.15'>Warranty post 2 working days (€ 18.15)
+								    </option>
+								    <option value="OC12" <?php echo (isset($Return_method) == 'OC12') ? 'selected' : ''; ?> data-price='44.95'>Courier next business day before 12:00 (€ 44.95)</option>
+								    <option value="OC17" <?php echo (isset($Return_method) == 'OC17') ? 'selected' : ''; ?> data-price='34.95'>Courier next business day before 5:00 PM (€ 34.95)
+								    </option>
+								    <option value="PICKUP" <?php echo (isset($Return_method) == 'PICKUP') ? 'selected' : ''; ?> data-price='0'>Pick up yourself in Rotterdam</option>
 								</select>
 								<span class="validate_error"><?php echo isset($ReturnErr) ? $ReturnErr : ''; ?></span>
 							</div>
@@ -295,7 +345,7 @@ get_header();
 
 					<div id="visa_travel_details-information" class="form_seprationSection">
 						<h3><?php echo __( 'Traveler data', 'visachild' ); ?></h3>
-						<p><?php echo __( 'Enter the general details of the traveler below. Click for explanation on the label / field or the i-tje. Pay particular attention to the "All Full names" and "last name" fields.', 'visachild' ); ?></p>
+						<p><?php echo __( 'Enter the general details of the traveler below. Click for explanation on the label / field or the i-tje. Pay particular attention to the "All first names" and "last name" fields.', 'visachild' ); ?></p>
 						<?php
 						if(isset($_POST['traverler'])){
 							$cntTraveller = count($_POST['traverler']['nationality']);
@@ -330,20 +380,20 @@ get_header();
 											<option value="United Kingdom">United Kingdom</option>
 											<option value="United States">United States</option>
 											<option value="Sweden">Sweden</option>
-											<option value="---" disabled="">--------------------------------------------</option>
+											<option value="---" disabled="">------------------------------------------</option>
 											<?php
 											if(!empty(get_list_countries())){
 												foreach(get_list_countries() as $country){?>
-													<option value="<?php echo $country->name;?>" <?php echo (isset($_POST['traverler']['nationality'][$j]) == $country->name) ? 'selected' : ''; ?>><?php echo $country->name;?></option>
+													<option value="<?php echo $country->country_code;?>" <?php echo (isset($_POST['traverler']['nationality'][$j]) == $country->country_code) ? 'selected' : ''; ?>><?php echo $country->name;?></option>
 												<?php } } ?>
 										</select>
 									</div>
 								</div><!-- form-group -->
 
 								<div class="form-group row">
-									<label for="traverler_full_name_<?php echo $j; ?>" class="vc_col-md-3 col-form-label"><?php echo __( 'Full name', 'visachild' ); ?></label>
+									<label for="traverler_first_name_<?php echo $j; ?>" class="vc_col-md-3 col-form-label"><?php echo __( 'Full name', 'visachild' ); ?></label>
 									<div class="vc_col-md-9">
-										<input type="text" value="<?php echo isset($_POST['traverler']['full_name'][$j]) ? $_POST['traverler']['full_name'][$j] : ''; ?>" class="form-control" name="traverler[full_name][]" id="traverler_full_name_<?php echo $j; ?>" placeholder="<?php echo __( 'Full name', 'visachild' ); ?>">
+										<input type="text" value="<?php echo isset($_POST['traverler']['full_name'][$j]) ? $_POST['traverler']['full_name'][$j] : ''; ?>" class="form-control" name="traverler[full_name][]" id="traverler_first_name_<?php echo $j; ?>" placeholder="<?php echo __( 'full name', 'visachild' ); ?>">
 									</div>
 								</div><!-- form-group -->
 
@@ -352,15 +402,15 @@ get_header();
 									<div class="vc_col-md-9">
 										<input type="text" class="form-control" value="<?php echo isset($_POST['traverler']['surname'][$j]) ? $_POST['traverler']['surname'][$j] : ''; ?>" name="traverler[surname][]" id="traverler_surname_<?php echo $j; ?>" placeholder="<?php echo __( 'Surname', 'visachild' ); ?>">
 									</div>
-								</div> --><!-- form-group -->
+								</div><!-- form-group -->
 
 								<div class="form-group row">
 									<label for="traverler_gender_<?php echo $j; ?>" class="vc_col-md-3 col-form-label"><?php echo __( 'Sex', 'visachild' ); ?></label>
 									<div class="vc_col-md-9">
 										<select name="traverler[gender][]" id="traverler_gender_<?php echo $j; ?>">
 											<option value="" <?php echo (isset($_POST['traverler']['gender'][$j]) == '') ? 'selected' : ''; ?>>Select gender</option>
-											<option value="Male" <?php echo (isset($_POST['traverler']['gender'][$j]) == 'Male') ? 'selected' : ''; ?>>Male</option>
-											<option value="Female" <?php echo (isset($_POST['traverler']['gender'][$j]) == 'Female') ? 'selected' : ''; ?>>Female</option>
+											<option value="man" <?php echo (isset($_POST['traverler']['gender'][$j]) == 'male') ? 'selected' : ''; ?>>Male</option>
+											<option value="woman" <?php echo (isset($_POST['traverler']['gender'][$j]) == 'female') ? 'selected' : ''; ?>>Female</option>
 										</select>
 									</div>
 								</div><!-- form-group -->
@@ -372,7 +422,7 @@ get_header();
 											<option value="" <?php echo (isset($_POST['traverler']['marital_status'][$j]) == '') ? 'selected' : ''; ?>>Select Marital Status</option>
 											<option value="single" <?php echo (isset($_POST['traverler']['marital_status'][$j]) == 'single') ? 'selected' : ''; ?>>Single</option>
 											<option value="married" <?php echo (isset($_POST['traverler']['marital_status'][$j]) == 'married') ? 'selected' : ''; ?>>Married</option>
-											<option value="widowed" <?php echo (isset($_POST['traverler']['marital_status'][$j]) == 'widowed') ? 'selected' : ''; ?>>Widowed</option>
+											<option value="widowed " <?php echo (isset($_POST['traverler']['marital_status'][$j]) == 'widowed ') ? 'selected' : ''; ?>>Widowed</option>
 										</select>
 									</div>
 								</div><!-- form-group -->
@@ -481,30 +531,6 @@ get_header();
 
 									</div>
 								</div>
-								<div id="sponsor_info_section" class="form_seprationSection business hidden">
-									<h3><?php echo __( 'Sponsor / Reference', 'visachild' ); ?></h3>
-									<div class="work-info">
-										<div class="form-group row">
-											<label for="sponsor_person_name_<?php echo $j; ?>" class="vc_col-md-3 col-form-label"><?php echo __( 'Name of sponsor/reference person' ); ?></label>
-											<div class="vc_col-md-9">
-												<input type="text" value="<?php echo isset($_POST['traverler']['sponsor_person_name'][$j]) ? $_POST['traverler']['sponsor_person_name'][$j] : ''; ?>" class="form-control" name="traverler[sponsor_person_name][]" id="sponsor_person_name_<?php echo $j; ?>">
-											</div>
-										</div><!-- form-group -->
-										<div class="form-group row">
-											<label for="sponsor_address_<?php echo $j; ?>" class="vc_col-md-3 col-form-label"><?php echo __( 'Address of sponsor/reference', 'visachild' ); ?></label>
-											<div class="vc_col-md-9">
-												<input type="text" value="<?php echo isset($_POST['traverler']['sponsor_address'][$j]) ? $_POST['traverler']['sponsor_address'][$j] : ''; ?>" class="form-control" name="traverler[sponsor_address][]" id="sponsor_address_<?php echo $j; ?>">
-											</div>
-										</div><!-- form-group -->
-										<div class="form-group row">
-											<label for="sponsor_phone_<?php echo $j; ?>" class="vc_col-md-3 col-form-label"><?php echo __( 'Telephone number', 'visachild' ); ?></label>
-											<div class="vc_col-md-9">
-												<input type="text" value="<?php echo isset($_POST['traverler']['sponsor_phone'][$j]) ? $_POST['traverler']['sponsor_phone'][$j] : ''; ?>" class="form-control" name="traverler[sponsor_phone][]" id="sponsor_phone__<?php echo $j; ?>"  placeholder="+316123456789">
-											</div>
-										</div><!-- form-group -->
-
-									</div>
-								</div>
 
 							</div> <!-- traveler_info -->
 
@@ -518,7 +544,7 @@ get_header();
 						</div> <!-- add_travelers-section -->
 					</div> <!-- visa_travel_details-information -->
 
-					<div id="visa_form_submit_section" class="visa_form_submit_section form_seprationSection text-right">
+					<div id="visa_form_submit_section" class="visa_form_submit_section form_seprationSection">
 						<button type="submit" class="btn btn-conv" data-nonce="<?php echo $indonesia_nonce; ?>">
 							<span>Apply for visas</span><i class="fa fa-angle-right" aria-hidden="true"></i>
 						</button>
@@ -526,31 +552,36 @@ get_header();
 				</div>
 			</form>
 		</div>
-		<div class="col-md-4">
-			<div class="flag-section">
-				<img style="display: inline-block; width: 150px" src="<?php echo get_stylesheet_directory_uri().'/Flags/Indonesia-Flag-icon.png'; ?>">
-				<h2 style="display: inline-block; font-size: 25px; ">Visum Indonesia</h2>
-			</div>
-			<div class="content">
-				<div id="visum">
-					<p><b>Visum: </b> Indonesia Tourism</p>
+		<div class="col-md-4 matlassidebar mequalheight">
+			<div class="wrapper">
+				<div class="flag-section">
+					<img style="display: inline-block; width: 150px" src="<?php echo get_stylesheet_directory_uri().'/Flags/Indonesia-Flag-icon.png'; ?>">
+					<h2 style="display: inline-block; font-size: 25px; ">Visum Indonesia</h2>
 				</div>
-				<div id="duration">
-					<p><b>Duration: </b>31 to 60 Days </p>
+				<div class="content">
+					<div id="visum">
+						<p><b>Visum: </b> Indonesia Tourism</p>
+					</div>
+					<div id="duration">
+						<p><b>Duration: </b>31 to 60 Days </p>
+					</div>
+					<div id="price">
+						<p><b>Price: </b> € 89.95</p>
+					</div>
+					<div id="FactSheet">
+						<p><a href="<?php the_field('factsheet'); ?>" target="_blank">Download PDF</a></p>
+					</div>
 				</div>
-				<div id="price">
-					<p><b>Price: </b> € 89.95</p>
+				<div class="more-info">
+					<p class="introduction">
+						<font style="vertical-align: inherit;">
+							Do you need help filling in a certain field?<br>
+							For some fields there is alreay an explanation given.
+							If you need further assistance, please <b>contact us</b>.
+						</font>
+					</p>
+					<p><span><i class="fa fa-phone"></i> +31 (0) 23 - 221 00 04</span></p>
 				</div>
-			</div>
-			<div class="more-info">
-				<p class="introduction">
-					<font style="vertical-align: inherit;">
-						Do you need help filling in a certain field?<br>
-						For some fields there is alreay an explanation given.
-						If you need further assistance, please <b>contact us</b>.
-					</font>
-				</p>
-				<p><span><i class="fa fa-phone-alt"></i> +31 (0) 23 - 221 00 04</span></p>
 			</div>
 		</div>
 	</div>
@@ -570,6 +601,7 @@ get_header();
 				$('#duration_option').val('maximum 60 days');
 				$('.duration-31-60').hide();
 				$('#visa_modal').modal('show');
+
 			}
 			else {
 				$('#visum').html('<p><b>Visum: </b> Indonesia Tourism</p>');
@@ -588,20 +620,22 @@ get_header();
 				}
 			}
 
-		$('#change_purpose').click(function() {
+		$('#purpose').change(function() {
 			var purpose = $('#purpose').val();
 
 			if (purpose == 'Tourism') {
-				$('#purpose_modal .modal-title').html('<b>Are you sure to change to Business purpose?</b>');
+				$('#purpose_modal .modal-title').html('<b>Are you sure to change to Tourism purpose?</b>');
 			}
 
 			else {
-				$('#purpose_modal .modal-title').html('<b>Are you sure to change to Tourism purpose?</b>');
+				$('#purpose_modal .modal-title').html('<b>Are you sure to change to Business purpose?</b>');
 			}
+
+			$('#purpose_modal').modal('show');
 		});
 
 		$('#change_purpose_btn').click(function() {
-			if ($('#purpose').val() == "Tourism") {
+			if ($('#purpose').val() == "Business") {
 				newselectedValue = "Business";
 				$('#purpose').val( newselectedValue );
 				$('#visum').html('<p><b>Visum: </b> Indonesia '+ newselectedValue +'</p>');
@@ -609,8 +643,9 @@ get_header();
 				$('#price').html('<p><b>Price: </b> No visum required</p>');
 				$('.tourism_duration').hide();
 				$('#duration_option').val('maximum 60 days');
+				$('.duration-31-60').hide();
 				$('#visa_modal').modal('show');
-				$('.business.hidden').removeClass('hidden');
+
 			}
 			else {
 				newselectedValue = "Tourism";
@@ -635,6 +670,16 @@ get_header();
 			// $('.visa_form_submit')[0].reset();
 
 		});
+
+		$('#cancel_purpose_btn').click(function() {
+			if ($('#purpose').val() == "Business") {
+				$('#purpose').val('Tourism');
+			}
+			else{
+				$('#purpose').val('Business');
+			}
+		});
+
 		$("#duration_option").change(function(){
 			if ($('#duration_option').val() ==  '1 to 30 days') {
 				if ($('#purpose').val() == 'Tourism') {

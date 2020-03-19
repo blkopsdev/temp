@@ -190,13 +190,8 @@ label.error {
     background-color: #0774af !important;
 }
 
-.add_travelers-section {
-    padding-top: 20px;
-}
-
-
 .add_travelers-section .btn-full-width {
-    background: #0774af !important;
+    background-color: #f2403d !important;
     color: #ffffff !important;
     font-size: 13px !important;
     padding: 10px !important;
@@ -209,7 +204,7 @@ label.error {
 }
 
 .add_travelers-section .btn-full-width:hover {
-    background-color: #3B6D39 !important;
+    background-color: #0774af !important;
 }
 
 .urgent {
@@ -224,7 +219,7 @@ label.error {
 
 #addMoreTraveller,
 .visa_form_submit button[type="submit"] {
-    background-color: #4C7E39 !important;
+    background-color: #f2403d !important;
     color: #ffffff !important;
     font-size: 16px !important;
     padding-top: 10px !important;
@@ -237,17 +232,12 @@ label.error {
 
 #addMoreTraveller:hover,
 .visa_form_submit button[type="submit"]:hover {
-    background-color: #3B6D39 !important;
+    background-color: #0774af !important;
 }
 
 .form_seprationSection .house_section {
     display: flex;
     flex-wrap: wrap;
-}
-
-.form_seprationSection {
-    border-bottom: solid 2px #ddd;
-    padding-bottom: 20px;
 }
 
 
@@ -431,13 +421,18 @@ label.error {
 }
 
 .site-main.clr .visa_form_submit button[type="submit"]:hover {
-    background: #3B6D39!important;
+    background: #000000!important;
     color: #ffffff!important;
 }
 
-.add_travelers-section .btn-full-width {
+.site-main.clr .add_travelers-section .btn-full-width {
     border: 0;
     border-radius: 4px;
+}
+
+.site-main.clr .add_travelers-section .btn-full-width:hover {
+    background: #000000!important;
+    color: #ffffff!important;
 }
 
 .site-main.clr .sticky {
@@ -556,6 +551,14 @@ color:
     #444;
     text-shadow: none;
 }
+body.mremove #wpadminbar,
+body.mremove #site-header-sticky-wrapper,
+body.mremove #main header.page-header,
+body.mremove #top-bar-wrap,
+body.mremove #footer,
+body.mremove #footer-bottom,
+body.page-template-mlogin header.page-header
+{ display: none; }
 /* --- Matlas ---*/
 @media (max-width:991px) {
     .visa_form_submit .form-group.row {

@@ -31,8 +31,23 @@ get_header();
 		echo $outHtml;
 	}
 	?>
+	<!-- Matlas -->
 	<div class="row">
-		<div class="col-md-8">
+		<div class="col-md-12" style="margin-bottom: 40px !important;">
+	        <ul class="process-steps process-2 clearfix">
+	            <li class=" active">
+	                <a href="#" class="i-bordered i-circled divcenter"><i class="fa fa-wpforms" aria-hidden="true"></i></a>
+	                <h5>1. Gegevens invullen</h5>
+	            </li>
+	            <li class="">
+	                <a href="javascript:jQuery('#order-form').submit(); return false;" class="i-bordered i-circled divcenter"><i class="fa fa-check" aria-hidden="true"></i></a>
+	                <h5>2. Controle en betaling</h5>
+	            </li>
+	        </ul>
+	    </div>
+	</div>
+	<div class="row backgrouddark">
+		<div class="col-md-8 matlasform mequalheight"  id="matlascontent" >
 			<form method="post" id="thailand_visa_form" class="visa_form_submit" enctype="multipart/form-data">
 				<div id="visa_travel-information" class="form_seprationSection">
 					<h3><?php echo __( 'Travel details', 'visachild' ); ?></h3>
@@ -48,6 +63,20 @@ get_header();
 						<label for="nationality" class="vc_col-md-3 col-form-label"><?php echo __( 'Nationality', 'visachild' ); ?></label>
 						<div class="vc_col-md-9">
 							<select name="nationality" id="nationality">
+									<option value="Belgium">Belgium</option>
+									<option value="Denmark">Denmark</option>
+									<option value="Germany">Germany</option>
+									<option value="Finland">Finland</option>
+									<option value="France">France</option>
+									<option value="Netherlands">Netherlands</option>
+									<option value="Norway">Norway</option>
+									<option value="Austria">Austria</option>
+									<option value="Slovakia">Slovakia</option>
+									<option value="Spain">Spain</option>
+									<option value="United Kingdom">United Kingdom</option>
+									<option value="United States">United States</option>
+									<option value="Sweden">Sweden</option>
+									<option value="---" disabled="">------------------------------------------</option>
 								<?php
 									if(!empty(get_list_countries())){
 										foreach(get_list_countries() as $country){?>
@@ -60,9 +89,13 @@ get_header();
 					<div class="form-group row">
 						<label for="purpose" class="vc_col-md-3 col-form-label"><?php echo __( 'Purpose', 'visachild' ); ?></label>
 						<div class="vc_col-md-9">
-							<input type="text" class="form-control" value="<?php echo isset($visa_purpose) ? $visa_purpose : 'Tourism'; ?>" name="purpose" id="purpose" readonly="true">
+							<!-- <input type="text" class="form-control" value="<?php //echo isset($visa_purpose) ? $visa_purpose : 'Tourism'; ?>" name="purpose" id="purpose" readonly="true"> -->
+							<select name="purpose" id="purpose">
+								<option value="Tourism" <?php echo (isset($visa_purpose) == 'Tourism') ? 'selected' : ''; ?>><?php echo __('Tourism', 'visachild') ?></option>
+								<option value="Business" <?php echo (isset($visa_purpose) == 'Business') ? 'selected' : ''; ?>><?php echo __('Business', 'visachild') ?></option>
+							</select>
 							<span class="validate_error"><?php echo isset($purposeErr) ? $purposeErr : ''; ?></span>
-							<span><a id="change_purpose" href="#purpose_modal" class="trigger-btn" data-toggle="modal">change</a></span>
+							<!-- <span><a id="change_purpose" href="#purpose_modal" class="trigger-btn" data-toggle="modal">change</a></span> -->
 						</div>
 						<!-- Modal HTML -->
 						<div id="purpose_modal" class="modal fade">
@@ -76,7 +109,7 @@ get_header();
 										<p>You must enter all the details again..</p>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+										<button id="cancel_purpose_btn" type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
 										<button type="button" class="btn btn-success" id="change_purpose_btn">Yes proceed</button>
 									</div>
 								</div>
@@ -150,20 +183,20 @@ get_header();
 							<label for="countries" class="vc_col-md-3 col-form-label"><?php echo __( 'Country', 'visachild' ); ?></label>
 							<div class="vc_col-md-9">
 								<select name="countries" id="countries">
-									<option value="BE">Belgium</option>
-									<option value="DK">Denmark</option>
-									<option value="DE">Germany</option>
-									<option value="FI">Finland</option>
-									<option value="FR">France</option>
-									<option value="NL">The Netherlands</option>
-									<option value="NO">Norway</option>
-									<option value="AT">Austria</option>
-									<option value="SK">Slovakia</option>
-									<option value="ES">Spain</option>
-									<option value="GB">United Kingdom</option>
-									<option value="US">United States</option>
-									<option value="SE">Sweden</option>
-									<option value="---" disabled="">--------------------------------------------</option>
+									<option value="Belgium">Belgium</option>
+									<option value="Denmark">Denmark</option>
+									<option value="Germany">Germany</option>
+									<option value="Finland">Finland</option>
+									<option value="France">France</option>
+									<option value="Netherlands">Netherlands</option>
+									<option value="Norway">Norway</option>
+									<option value="Austria">Austria</option>
+									<option value="Slovakia">Slovakia</option>
+									<option value="Spain">Spain</option>
+									<option value="United Kingdom">United Kingdom</option>
+									<option value="United States">United States</option>
+									<option value="Sweden">Sweden</option>
+									<option value="---" disabled="">------------------------------------------</option>
 									<?php
 									if(!empty(get_list_countries())){
 										foreach(get_list_countries() as $country){?>
@@ -366,20 +399,20 @@ get_header();
 									<div class="vc_col-md-9">
 										<select name="traverler[nationality][]" id="traverler_nationality_<?php echo $j; ?>">
 											<option value="" <?php echo (isset($_POST['traverler']['nationality'][$j]) == '') ? 'selected' : ''; ?>>Select Nationality</option>
-											<option value="BE">Belgium</option>
-											<option value="DK">Denmark</option>
-											<option value="DE">Germany</option>
-											<option value="FI">Finland</option>
-											<option value="FR">France</option>
-											<option value="NL">The Netherlands</option>
-											<option value="NO">Norway</option>
-											<option value="AT">Austria</option>
-											<option value="SK">Slovakia</option>
-											<option value="ES">Spain</option>
-											<option value="GB">United Kingdom</option>
-											<option value="US">United States</option>
-											<option value="SE">Sweden</option>
-											<option value="---" disabled="">--------------------------------------------</option>
+											<option value="Belgium">Belgium</option>
+											<option value="Denmark">Denmark</option>
+											<option value="Germany">Germany</option>
+											<option value="Finland">Finland</option>
+											<option value="France">France</option>
+											<option value="Netherlands">Netherlands</option>
+											<option value="Norway">Norway</option>
+											<option value="Austria">Austria</option>
+											<option value="Slovakia">Slovakia</option>
+											<option value="Spain">Spain</option>
+											<option value="United Kingdom">United Kingdom</option>
+											<option value="United States">United States</option>
+											<option value="Sweden">Sweden</option>
+											<option value="---" disabled="">------------------------------------------</option>
 											<?php
 											if(!empty(get_list_countries())){
 												foreach(get_list_countries() as $country){?>
@@ -394,20 +427,6 @@ get_header();
 									<div class="vc_col-md-9">
 										<select name="traverler[nationality_at_birth][]" id="traverler_natioinality_at_birth_<?php echo $j; ?>">
 											<option value="" <?php echo (isset($_POST['traverler']['nationality_at_birth'][$j]) == '') ? 'selected' : ''; ?>>Select Nationality at Birth</option>
-											<option value="BE">Belgium</option>
-											<option value="DK">Denmark</option>
-											<option value="DE">Germany</option>
-											<option value="FI">Finland</option>
-											<option value="FR">France</option>
-											<option value="NL">The Netherlands</option>
-											<option value="NO">Norway</option>
-											<option value="AT">Austria</option>
-											<option value="SK">Slovakia</option>
-											<option value="ES">Spain</option>
-											<option value="GB">United Kingdom</option>
-											<option value="US">United States</option>
-											<option value="SE">Sweden</option>
-											<option value="---" disabled="">--------------------------------------------</option>
 											<?php
 											if(!empty(get_list_countries())){
 												foreach(get_list_countries() as $country){?>
@@ -438,12 +457,12 @@ get_header();
 										<label for="traverler_work_<?php echo $j; ?>" class="vc_col-md-3 col-form-label"><?php echo __( 'Work', 'visachild' ); ?></label>
 										<div class="vc_col-md-9">
 											<select name="traverler[work][]" id="traverler_work">
-												<option value="no" <?php echo (isset($_POST['traverler']['work'][$j]) == 'no') ? 'selected' : ''; ?>>No</option>
 												<option value="yes" <?php echo (isset($_POST['traverler']['work'][$j]) == 'yes') ? 'selected' : ''; ?>>Yes</option>
+												<option value="no" <?php echo (isset($_POST['traverler']['work'][$j]) == 'no') ? 'selected' : ''; ?>>No</option>
 											</select>
 										</div>
 									</div><!-- form-group -->
-									<div class="work-info hidden">
+									<div class="work-info">
 										<div class="form-group row">
 											<label for="traverler_profession<?php echo $j; ?>" class="vc_col-md-3 col-form-label"><?php echo __( 'profession', 'visachild' ); ?></label>
 											<div class="vc_col-md-9">
@@ -512,6 +531,8 @@ get_header();
 							</div> <!-- traveler_info -->
 
 						<?php } ?>
+
+
 						<div class="add_travelers-section" id="add_travelers-section">
 							<span id="add_traverl_info_button" class="btn btn-full-width btn-primary" data-total="<?php echo $cntTraveller; ?>">
 								<i class="fa fa-user-plus" aria-hidden="true"></i>  Add a traveler
@@ -519,7 +540,7 @@ get_header();
 						</div> <!-- add_travelers-section -->
 					</div> <!-- visa_travel_details-information -->
 
-					<div id="visa_form_submit_section" class="visa_form_submit_section form_seprationSection text-right">
+					<div id="visa_form_submit_section" class="visa_form_submit_section form_seprationSection">
 						<button type="submit" class="btn btn-conv" data-nonce="<?php echo $thailand_nonce; ?>">
 							<span>Apply for visas</span><i class="fa fa-angle-right" aria-hidden="true"></i>
 						</button>
@@ -527,37 +548,41 @@ get_header();
 				</div>
 			</form>
 		</div>
-		<div class="col-md-4">
-			<div class="flag-section">
-				<img style="display: inline-block; width: 150px" src="<?php echo get_stylesheet_directory_uri().'/Flags/thailand-flag.png'; ?>">
-				<h2 style="display: inline-block; font-size: 25px; ">Visum Thailand</h2>
-			</div>
-			<div class="content">
-				<div id="visum">
-					<p><b>Visum: </b> Russia Tourism</p>
+		<div class="col-md-4 matlassidebar mequalheight">
+			<div class="wrapper">
+				<div class="flag-section">
+					<img style="display: inline-block; width: 150px" src="<?php echo get_stylesheet_directory_uri().'/Flags/thailand-flag.png'; ?>">
+					<h2 style="display: inline-block; font-size: 25px; ">Visum Thailand</h2>
 				</div>
-				<div id="duration">
-					<p><b>Duration: </b>31 to 60 Days </p>
+				<div class="content">
+					<div id="visum">
+						<p><b>Visum: </b> Russia Tourism</p>
+					</div>
+					<div id="duration">
+						<p><b>Duration: </b>31 to 60 Days </p>
+					</div>
+					<div id="price">
+						<p><b>Price: </b> € 69,95</p>
+					</div>
+					<div id="FactSheet">
+						<p><a href="<?php the_field('factsheet'); ?>" target="_blank">Download PDF</a></p>
+					</div>
 				</div>
-				<div id="price">
-					<p><b>Price: </b> € 69,95</p>
+				<div class="more-info">
+					<p class="introduction">
+						<font style="vertical-align: inherit;">
+							Do you need help filling in a certain field?<br>
+							For some fields there is alreay an explanation given.
+							If you need further assistance, please <b>contact us</b>.
+						</font>
+					</p>
+					<p><span><i class="fa fa-phone"></i> +31 (0) 23 - 221 00 04</span></p>
 				</div>
-			</div>
-			<div class="more-info">
-				<p class="introduction">
-					<font style="vertical-align: inherit;">
-						Do you need help filling in a certain field?<br>
-						For some fields there is alreay an explanation given.
-						If you need further assistance, please <b>contact us</b>.
-					</font>
-				</p>
-				<p><span><i class="fa fa-phone-alt"></i> +31 (0) 23 - 221 00 04</span></p>
 			</div>
 		</div>
 	</div>
 </div>
-<?php get_footer();
-?>
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	jQuery(document).ready(function($) {
@@ -589,20 +614,21 @@ get_header();
 				}
 			}
 
-		$('#change_purpose').click(function() {
+		$('#purpose').change(function() {
 			var purpose = $('#purpose').val();
 
 			if (purpose == 'Tourism') {
-				$('#purpose_modal .modal-title').html('<b>Are you sure to change to Business purpose?</b>');
+				$('#purpose_modal .modal-title').html('<b>Are you sure to change to Tourism purpose?</b>');
 			}
 
 			else {
-				$('#purpose_modal .modal-title').html('<b>Are you sure to change to Tourism purpose?</b>');
+				$('#purpose_modal .modal-title').html('<b>Are you sure to change to Business purpose?</b>');
 			}
+			$('#purpose_modal').modal('show');
 		});
 
 		$('#change_purpose_btn').click(function() {
-			if ($('#purpose').val() == "Tourism") {
+			if ($('#purpose').val() == "Business") {
 				newselectedValue = "Business";
 				$('#purpose').val( newselectedValue );
 				$('#visum').html('<p><b>Visum: </b> Thailand '+ newselectedValue +'</p>');
@@ -636,6 +662,17 @@ get_header();
 			// $('.visa_form_submit')[0].reset();
 
 		});
+
+		$('#cancel_purpose_btn').click(function() {
+			if ($('#purpose').val() == "Business") {
+				$('#purpose').val('Tourism');
+			}
+			else{
+				$('#purpose').val('Business');
+			}
+		});
+
+
 		$("#duration_option").change(function(){
 			if ($('#duration_option').val() ==  '1 to 30 days') {
 				if ($('#purpose').val() == 'Tourism') {
@@ -708,3 +745,5 @@ get_header();
 		}
 	});
 </script>
+<?php get_footer();
+?>

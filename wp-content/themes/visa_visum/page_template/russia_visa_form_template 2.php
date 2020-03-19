@@ -102,7 +102,7 @@ if(!empty($_POST)) {
 		}
 	}
 	$formSubmit = russia_form_submit_new($_POST);
-	wp_redirect( $redirectURL );
+	//wp_redirect( $redirectURL );
 }
 $entries = [
 	'single-entry' => [
@@ -927,12 +927,6 @@ get_header();
 												<input type="text" value="<?php echo isset($_POST['traverler']['employer_telephone_9_to_30'][$j]) ? $_POST['traverler']['employer_telephone_9_to_30'][$j] : ''; ?>" class="form-control" name="traverler[employer_telephone_9_to_30][]" id="traverler_employer_telephone_9_to_30<?php echo $j; ?>" placeholder="+316123456789">
 											</div>
 										</div><!-- form-group -->
-										<div class="form-group row">
-											<label for="traverler_employer_email_9_to_30<?php echo $j; ?>" class="vc_col-md-3 col-form-label"><?php echo __( 'Employer Email', 'visachild' ); ?></label>
-											<div class="vc_col-md-9">
-												<input type="email" value="<?php echo isset($_POST['traverler']['employer_email_title_9_to_30'][$j]) ? $_POST['traverler']['employer_email_title_9_to_30'][$j] : ''; ?>" class="form-control" name="traverler[employer_email_title_9_to_30][]" id="traverler_employer_email_9_to_30<?php echo $j; ?>" placeholder="Employer Email Address">
-											</div>
-										</div><!-- form-group -->
 									</div>
 								</div>
 								<h3>Family Member</h3>
@@ -1107,7 +1101,7 @@ get_header();
 							</div>
 						</div> <!-- add_travelers-section -->
 					</div> <!-- visa_travel_details-information -->
-					
+					<input type="hidden" name="form_fees" value="101">
 					<div class="visa_form_submit_section text-right">
 						<button type="submit" class="btn btn-conv" data-nonce="<?php echo $russia_nonce; ?>">
 							<span><?=__( 'Apply for visas', 'visachild' ); ?></span><i class="fa fa-angle-right" aria-hidden="true"></i>
