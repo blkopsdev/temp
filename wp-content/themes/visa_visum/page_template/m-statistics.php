@@ -17,25 +17,24 @@ get_header(); ?>
            <a href="#"><img src="/wp-content/uploads/2020/01/travel_image.png" alt="Travel Image"></a>
         </div><!-- end of left_logo-->
         <div class="top_bar">
-            <div class="searchbar"><i class="fa fa-search" aria-hidden="true"></i><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search ..."></div>
+            <div class="left_bar"></div>
             <div class="right_bar">
-                <a href="#" class="notification"><img src="" alt=""></a>
-                <a href="#" class="logout"><span><i class="fa fa-sign-out" aria-hidden="true"></i></span> logout</a>
+                <a href="<?php echo wp_logout_url( home_url() ); ?>" class="logout"><span><i class="fa fa-sign-out" aria-hidden="true"></i></span> logout</a>
             </div>
         </div><!-- end of top_bar-->
     </div><!-- end of dashboard_top-->
 
 <div class="dashboard">
-  
+
     <div class="left_dash">
         <h5>Navigation</h5>
         <div class="dashboard_menu">
-            <a href="#"><span><i class="fa fa-shopping-cart"></i> </span>Orders</a>
-            <a href="#"  class="active"><span><i class="fa fa-th-large" aria-hidden="true"></i> </span> Statistics</a>
+            <a href="<?php echo site_url('m-dashboard'); ?>" class="active"><span><i class="fa fa-shopping-cart"></i> </span>Orders</a>
+            <a href="<?php echo site_url('m-statistics'); ?>"><span><i class="fa fa-th-large" aria-hidden="true"></i> </span> Statistics</a>
         </div>
     </div><!-- end of left_dash-->
     <div class="right_dash">
-       
+
         <div class="dash_menu">
             <div class="menu_title">
                 <h3>Statistics</h3>
@@ -66,10 +65,10 @@ get_header(); ?>
                         <a href="#">Link 3</a>
                         </div>
                     </div>
-                    
+
                 </li>
                 <li>
-                    <p>Source</p> 
+                    <p>Source</p>
                     <div class="dropdown drop_buttons">
                         <button class="dropbtn">Everything</button>
                         <div class="dropdown-content">
@@ -78,7 +77,7 @@ get_header(); ?>
                         <a href="#">Link 3</a>
                         </div>
                     </div>
-                   
+
                 </li>
             </ul><!-- end of date_filter-->
 
@@ -123,7 +122,7 @@ get_header(); ?>
                                <p>Previous Week</p>
                                <h1>58,610</h1>
                            </li>
-                       </ul>     
+                       </ul>
                     </div><!-- end of weekly_report-->
                      <img src="<?php echo get_stylesheet_directory_uri()?>/images/revenue_graph.jpg" class="img-fluid">
                 </div><!-- end of revenue_graph-->
@@ -200,7 +199,7 @@ get_header(); ?>
             </tbody>
         </table>
 </div><!-- end of table_responsive-->
-                   
+
                 </div><!-- end of top_partners_table-->
 
                 <div class="total_sales_graph">

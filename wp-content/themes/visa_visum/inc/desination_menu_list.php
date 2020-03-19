@@ -19,7 +19,7 @@ function destination_menu() {
   $travelQuery = $wpdb->get_results( "SELECT * FROM $travel_purpose" );
   $destinationQuery = array();
   $args = array(
-    'post_type' => 'destination',
+    'post_type' => 'page',
     'post_status' => 'publish',
     'posts_per_page' => -1,
     'orderby' => 'title',

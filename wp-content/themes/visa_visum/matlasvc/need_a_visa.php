@@ -31,7 +31,7 @@ function create_needavisa_shortcode($atts) {
 								if(strtoupper($nationality->country_abbr) == 'NL'){
 									$strSelected = "selected";
 								}
-								$output .= '<option value="'.$nationality->id.'" '.$strSelected.'>'.__(ucwords($nationality->country),'traveldocs').'</option>';
+								$output .= '<option value="'.$nationality->id.'" '.$strSelected.'>'.icl_t('visachild', $nationality->country, $nationality->country).'</option>';
 							}
 						}
 					$output .= '</select>';
@@ -41,22 +41,14 @@ function create_needavisa_shortcode($atts) {
 				$output .= '<label>'.$atts['to'].'</label>';
 				$output .= '<span>';
 					$output .= '<select name="destination" id="destination">';
-						$output .= '<option value="" selected>Select Destination</option>';
+						$output .= '<option value="" selected>'.__('Select Destination','traveldocs').'</option>';
 						if(!empty($nationalityQuery)){
 							foreach($nationalityQuery as $nationality){
 								if(8 == $nationality->id){
-									$output .= '<option value="'.$nationality->id.'">'.__(ucwords($nationality->country),'traveldocs').'</option>';
+									$output .= '<option value="'.$nationality->id.'">'.__(ucwords(icl_t('visachild', $nationality->country, $nationality->country)),'traveldocs').'</option>';
 								}
 							}
 						}
-					$output .= '</select>';
-				$output .= '</span>';
-			$output .= '</div>';
-			$output .= '<div class="search-column">';
-				$output .= '<label>'.$atts['purpose'].'</label>';
-				$output .= '<span>';
-					$output .= '<select name="purpose" id="purpose">';
-						$output .= '<option value="">Select Purpose</option>';
 					$output .= '</select>';
 				$output .= '</span>';
 			$output .= '</div>';
