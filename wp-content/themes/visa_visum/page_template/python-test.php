@@ -14,8 +14,11 @@ get_header();
     $fid = $_GET['fid'];
     $dest = strtolower($_GET['dest']);
     $command = escapeshellcmd('python3 /var/www/visa/' . $dest . '_visa.py ' . $fid);
-    echo $command;
-    // $output = shell_exec($command);
-    // var_dump($output);
+    $output = shell_exec($command);
+    if(strpos($output, 'success') !== false){
+        echo "Automation has failed.";
+    } else {
+        echo "Automation has succeeded.";
+    }
 ?>
 <?php get_footer(); ?>
