@@ -267,9 +267,33 @@ function removePlace(id) {
 
 }
 
+jQuery(document).ready(function ($) {
+	$('.add-more').click(function () {
+		var parent = $(this).data('parent');
+		var oldNode = $(parent).find('.multiple').last();
+		var newNode = $(oldNode).clone();
+		var newIdx = parseInt($(oldNode).data('index')) + 1;
+		$(newNode).data('index', newIdx );
+		$(newNode).find('button.remove-btn.hidden').removeClass('hidden');
+		$(newNode).find('.index').text(newIdx);
+		$(newNode).insertAfter($(oldNode));
+	});
+	jQuery(".legalisatie-button").click(function(){
+	  jQuery(".legalisatie-form-section").toggle();
+	});
+});
 
-jQuery(document).ready(function(){
-jQuery(".legalisatie-button").click(function(){
-  jQuery(".legalisatie-form-section").toggle();
-});
-});
+
+function removeMulti(elem) {
+
+	var parent = jQuery(elem).data('parent');
+	jQuery(elem).closest('.multiple').remove();
+	jQuery(parent).find('.multiple').each(function (index) {
+		var newIdx = index + 1;
+		if (index === 0) {
+			jQuery(this).find('button.remove-btn').not('.hidden').addClass('hidden');
+		}
+		jQuery(this).data('index', newIdx);
+		jQuery(this).find('.index').text(newIdx);
+	});
+}
