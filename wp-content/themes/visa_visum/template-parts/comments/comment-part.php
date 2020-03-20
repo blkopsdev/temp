@@ -1,12 +1,7 @@
 <?php
-  // require_once get_stylesheet_directory() . "/template-parts/comments/persistence.php";
-  // $comment_post_ID = 1;
-  // $db = new Persistence();
-  // $comments = $db->get_comments($comment_post_ID);
-  // $has_comments = (count($comments) > 0);
+  
   if(!empty($_POST)) {
     $formSubmit = comment_form_submit($_POST);
-    //wp_redirect( $redirectURL );
   }
 
   $visa_id = $_GET['fid'];
@@ -20,11 +15,6 @@
 	$main_results = $wpdb->get_results($sql,ARRAY_A);
 	$wpdb->flush();
   
-  $formSubmit = '';
-  
-  $cur_user = wp_get_current_user();
-  $cur_uid = $cur_user->ID;
-
   
 ?>
 
@@ -53,7 +43,6 @@
       <textarea name="comment" id="comment" rows="4" tabindex="4"  required="required" placeholder="Type your comments..."></textarea>
       <input type="hidden" name="dest" value="<?php echo($visa_destination); ?>" id="destination" />
       <input type="hidden" name="fid" value="<?php echo($visa_id); ?>" id="fid" />
-      <input type="hidden" name="user_id" value="<?php echo $cur_uid; ?>" id="user_id"/>
       <input name="submit" type="submit" value="Submit comment" />
     </form>
     

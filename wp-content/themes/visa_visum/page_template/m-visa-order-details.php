@@ -98,20 +98,6 @@ $table = $wpdb->prefix."russia_visa_form_new";
 									}
 								?>
 							</div>
-							<!-- <div class="comments">
-								<h3>Comments</h3>
-								<div class="comments_connect">
-									<div class="updated_system">
-										<div class="comment_image">
-											<img src="<?php echo get_stylesheet_directory_uri()?>/images/profile_logo.png" class="img-fluid">
-										</div>
-										<div class="system_details">
-											<h3>System <span>30-12-2019</span></h3>
-											<h2>Order was updated</h2>
-										</div>
-									</div>
-								</div>
-							</div> -->
 							<div class="comments">
 								<h3>Comments</h3>
 								<?php
