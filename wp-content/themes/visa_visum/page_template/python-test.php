@@ -21,19 +21,11 @@ get_header();
                 $dest = strtolower($_GET['dest']);
                 $command = escapeshellcmd('python3 /var/www/visa/' . $dest . '_visa.py ' . $fid);
                 $output = shell_exec($command);
-                if(strpos($output, 'success') == false){
+                
                 ?>
                 <div class="container">
-                    <h2><?php echo "Automation has failed."; ?></h2>
+                    <h2><?php echo "Automation has ".$output."!"; ?></h2>
                     <a href="/m-visa-order-details/?fid=<?php echo $fid; ?>&dest=<?php echo $_GET['dest']; ?>">Back</a>
-                    <?php
-                    } else {
-                    ?>
-                    <h2><?php echo "Automation has succeeded."; ?></h2>
-                    <a href="/m-visa-order-details/?fid=<?php echo $fid; ?>&dest=<?php echo $_GET['dest']; ?>">Back</a>
-                    <?php
-                    }
-                    ?>
                 </div>
             <?php } else {?>
                 <article class="entry clr">
