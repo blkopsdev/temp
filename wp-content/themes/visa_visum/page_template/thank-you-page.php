@@ -20,8 +20,10 @@ get_header(); ?>
 					<?php wpex_get_template_part( 'page_single_blocks' ); ?>
 				<?php endwhile; ?>
 				<?php
+				if(isset($_GET['session_id'])){
 					$id = $_GET['session_id'];
 					matlaspaymentchecker($id);
+				}
 				?>
 			</div><!-- #content -->
 		</div><!-- #primary -->

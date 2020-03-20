@@ -754,23 +754,24 @@ function matlaspageredirect(){
 function matlaspayment($amt,$redirectURL,$oid){
   require 'stripe/vendor/autoload.php';  
   //Key setup
-  $pk = 'pk_test_QWkN6RpWsoY4Um9ghpeRS3MF0012fh9liJ';
-  $sk = 'sk_test_QBmeCFe50mT9BQvqQHZbLNWA00l7gwCZKB';
+  $pk = 'pk_test_TEu2bxYGe0jgHpXTSD4C3VH800xldo03UR';
+  $sk = 'sk_test_Q3KuvKjqWfZEGB0rArM0TN5h00wFLvkZm7';
   \Stripe\Stripe::setApiKey($sk);
   $pubkey = $pk;
   // Based on stripeToken working on it.
   $order_id = $oid;
   $amount = (int)($amt * 100);
-  $matlascurrency = 'USD';
+  $matlascurrency = 'EUR';
 
   if($matlascurrency == 'EUR'){ $mctype = ['card','ideal']; }else{ $mctype = ['card']; }
   try{
       $session = \Stripe\Checkout\Session::create([
         'payment_method_types' => $mctype,
         'line_items' => [[
-          'name' => 'Book Taxi',
-          'description' => 'Book Taxi Desc',
-          'images' => ['https://example.com/t-shirt.png'],
+          'name' => 'Totaal',
+          //'description' => '<img src="'.get_stylesheet_directory_uri().'/images/secure.png">',
+          'images' => [site_url().'/wp-content/uploads/2020/01/travel_image.png'],
+          'images' => [get_stylesheet_directory_uri().'/images/secure.png'],
           'amount' =>  $amount,
           'currency' => $matlascurrency,
           'quantity' => 1,
@@ -800,8 +801,8 @@ function matlaspaymentchecker($id){
   global $wpdb;
   $wp_common = $wpdb->prefix . 'common';
   //Key setup
-  \Stripe\Stripe::setApiKey('sk_test_QBmeCFe50mT9BQvqQHZbLNWA00l7gwCZKB');
-  $pubkey = 'pk_test_QWkN6RpWsoY4Um9ghpeRS3MF0012fh9liJ';
+  \Stripe\Stripe::setApiKey('sk_test_Q3KuvKjqWfZEGB0rArM0TN5h00wFLvkZm7');
+  $pubkey = 'pk_test_TEu2bxYGe0jgHpXTSD4C3VH800xldo03UR';
   $pcardt = 'Strip / ';
   if(isset($id)){
       $retriveSession = \Stripe\Checkout\Session::retrieve($id);
@@ -843,4 +844,13 @@ if (function_exists('icl_register_string')) {
       icl_register_string('visachild', '', $value, $value);
     }
   } 
+}
+
+add_action("wp_ajax_matlastrack", "matlastrack");
+add_action("wp_ajax_nopriv_matlastrack", "matlastrack");
+function matlastrack() {
+  if(isset($_REQUEST['trackid']) && $_REQUEST['trackid']){
+    echo $_REQUEST['trackid'];
+  }  
+  die();
 }
