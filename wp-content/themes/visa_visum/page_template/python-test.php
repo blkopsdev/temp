@@ -15,7 +15,7 @@ get_header();
     $dest = strtolower($_GET['dest']);
     $command = escapeshellcmd('python3 /var/www/visa/' . $dest . '_visa.py ' . $fid);
     $output = shell_exec($command);
-    if(strpos($output, 'success') !== false){
+    if(strpos($output, 'success') == false){
         echo "Automation has failed.";
     } else {
         echo "Automation has succeeded.";
