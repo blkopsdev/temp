@@ -190,8 +190,13 @@ label.error {
     background-color: #0774af !important;
 }
 
+.add_travelers-section {
+    padding-top: 20px;
+}
+
+
 .add_travelers-section .btn-full-width {
-    background-color: #f2403d !important;
+    background: #0774af !important;
     color: #ffffff !important;
     font-size: 13px !important;
     padding: 10px !important;
@@ -204,7 +209,7 @@ label.error {
 }
 
 .add_travelers-section .btn-full-width:hover {
-    background-color: #0774af !important;
+    background-color: #3B6D39 !important;
 }
 
 .urgent {
@@ -219,7 +224,7 @@ label.error {
 
 #addMoreTraveller,
 .visa_form_submit button[type="submit"] {
-    background-color: #f2403d !important;
+    background-color: #4C7E39 !important;
     color: #ffffff !important;
     font-size: 16px !important;
     padding-top: 10px !important;
@@ -232,12 +237,17 @@ label.error {
 
 #addMoreTraveller:hover,
 .visa_form_submit button[type="submit"]:hover {
-    background-color: #0774af !important;
+    background-color: #3B6D39 !important;
 }
 
 .form_seprationSection .house_section {
     display: flex;
     flex-wrap: wrap;
+}
+
+.form_seprationSection {
+    border-bottom: solid 2px #ddd;
+    padding-bottom: 20px;
 }
 
 
@@ -250,6 +260,10 @@ label.error {
 .form_seprationSection .house_section #appart_number {
     flex: 0 0 28%;
     max-width: 28%;
+}
+
+.highlight {
+    color: #f2403d;
 }
 
 .form_seprationSection .travel_details_container h4 span {
@@ -394,6 +408,12 @@ label.error {
 
 .site-main.clr .visa_form_submit #visa_travel_details-information .travel_details_container h4 {
     color: #000;
+    margin-bottom: 22px;
+    font-weight: 600;
+}
+
+.site-main.clr .visa_form_submit #visa_travel_details-information .travel_details_container h5 {
+    color: #000;
     margin-bottom: 20px;
     font-weight: 600;
 }
@@ -405,7 +425,7 @@ label.error {
 
 .site-main.clr .visa_form_submit h4 {
     color: #000;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     font-weight: 600;
 }
 
@@ -420,19 +440,33 @@ label.error {
     display: none;
 }
 
+.multiple h4, .multiple h5 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.multiple h4 > span{
+    background-color: transparent !important;
+    color: #000 !important;
+    font-weight: 600 !important;
+    font-size: 22px !important;
+}
+
+.multiple h4 .remove-btn, .multiple h5 .remove-btn {
+    background-color: #f2403d;
+    font-size: 12px;
+    color: white;
+}
+
 .site-main.clr .visa_form_submit button[type="submit"]:hover {
-    background: #000000!important;
+    background: #3B6D39!important;
     color: #ffffff!important;
 }
 
-.site-main.clr .add_travelers-section .btn-full-width {
+.add_travelers-section .btn-full-width {
     border: 0;
     border-radius: 4px;
-}
-
-.site-main.clr .add_travelers-section .btn-full-width:hover {
-    background: #000000!important;
-    color: #ffffff!important;
 }
 
 .site-main.clr .sticky {
@@ -557,27 +591,9 @@ body.mremove #main header.page-header,
 body.mremove #top-bar-wrap,
 body.mremove #footer,
 body.mremove #footer-bottom,
-body.page-template-mlogin header.page-header{ display: none; }
-form.matlasTrack{margin:0 auto;text-align:center;}
-.matlasTrack div.message{
-    background: #0975af;
-    padding: 5px;
-    width: 40%;
-    margin: 10px auto;
-    color: #fff;
-}
-.matlasTrack input{margin-bottom:15px;padding-top:10px;padding-bottom:10px;width:40%;}
-.matlasTrack input[type="submit"]{
-    background-color: #f2403d!important;
-    color: #ffffff!important;
-    font-size: 20px!important;
-    padding-top: 10px!important;
-    padding-bottom: 10px!important;
-    text-transform:uppercase;
-    font-weight:bold;
-}
+body.page-template-mlogin header.page-header
+{ display: none; }
 /* --- Matlas ---*/
-
 @media (max-width:991px) {
     .visa_form_submit .form-group.row {
         display: block;
@@ -587,9 +603,7 @@ form.matlasTrack{margin:0 auto;text-align:center;}
         display: block;
     }
 }
-@media only screen and (max-width: 767px) {
-    .matlasTrack input, .matlasTrack div.message{width:100%;}
-}
+
 @media (max-width:575px) {
     .form_seprationSection .house_section #house_number {
         margin-right: 8px;
@@ -618,6 +632,7 @@ form.matlasTrack{margin:0 auto;text-align:center;}
     border-radius: 4px !important;
     box-shadow: none !important;
 }
+
 
 ::-webkit-search-cancel-button,
 ::-webkit-clear-button {

@@ -54,8 +54,9 @@ require_once get_stylesheet_directory() . "/inc/visa_form/chine_form_submit.php"
 require_once get_stylesheet_directory() . "/inc/visa_form/turkey_form_sql.php"; // turkey Form SQL
 require_once get_stylesheet_directory() . "/inc/visa_form/turkey_form_submit.php"; // turkey Form submit
 
-
 require_once get_stylesheet_directory() . "/inc/visa_form/russia_form_submit_new.php"; // russia Form submit
+
+require_once get_stylesheet_directory() . "/inc/visa_form/common.php"; // russia Form submit
 
 require_once get_stylesheet_directory() . "/inc/visa_form/thailand_form_submit_new.php"; // thailand Form submit
 
@@ -64,4 +65,6 @@ require_once get_stylesheet_directory() . "/inc/visa_form/indonesia_form_submit_
 require_once get_stylesheet_directory() . "/inc/visa_form/newzealand_form_submit_new.php"; //New Zealand Form submit
 
 require_once get_stylesheet_directory() . "/inc/visa_form/usa_form_submit_new.php"; //usa Form submit
+
+require_once get_stylesheet_directory() . "/template-parts/comments/comment_form_submit.php"; //Comment Form submit
 ?>

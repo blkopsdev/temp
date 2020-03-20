@@ -27,7 +27,8 @@ function russia_form_submit_new($postData) {
 		'hotel_company_address' => $postData['hotel_company_address'],
 		'hotel_company_place' => $postData['hotel_company_place'],
 		'area' => $postData['area_1_to_8'],
-		'number_of_entries' => $postData['number_of_entries']
+		'number_of_entries' => $postData['number_of_entries'],
+		'current_lang' => $postData['current_lang']
 	);
 	$wpdb->insert( $russia_form_db, $formData );
 	$russia_form_insert_id = $wpdb->insert_id;
@@ -134,12 +135,14 @@ function russia_form_submit_new($postData) {
 			'country' => 'Russia',
 			'purpose' => $postData['purpose'],
 			'transaction_id' => '',
-			'payment_status' => 'Action required'
+			'payment_status' => 'Action required',
+			'email_address' => $postData['email_address'],
+			'total_amount' => 0
 		];
 		$wpdb->insert( $common_db, $common_data );
 		$lastInsertId = $wpdb->insert_id;  
 		if(isset($postData['form_fees']) && $postData['form_fees'] != ''){
-			$mredirectURL = site_url('thank-you');
+			$mredirectURL = site_url('/thank-you');
 			matlaspayment($postData['form_fees'],$mredirectURL,$lastInsertId);
 		}
 		$wpdb->flush();

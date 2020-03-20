@@ -38,11 +38,11 @@ get_header();?>
                 <h3>Visum aanvragen:</h3>
             </div>
         </div>
+
         <?php
             global $wpdb;
-            $wp_common = $wpdb->prefix.'common';
             $russia_table = $wpdb->prefix.'russia_visa_form_new';
-            $russia_sql = "select * from ".$wp_common;
+            $russia_sql = "select * from ".$russia_table;
             $russia_results = $wpdb->get_results($russia_sql);
             $rowcount = $wpdb->num_rows;
         ?>
@@ -80,8 +80,7 @@ get_header();?>
                     <?php
                     if ($russia_results != 0) {
                       foreach($russia_results as $russia_result){
-                        $final_status = mtlasgetfield('ID',$russia_result->form_id,$russia_result->table_name,'final_status');
-                            switch ($final_status) {
+                            switch ($russia_result->final_status) {
                                 case 'Received':
                                     $class = 'grey';
                                     break;
@@ -107,17 +106,17 @@ get_header();?>
                                     $class = 'grey';
                                     break;
                             }
-                        $destination_country = mtlasgetfield('ID',$russia_result->form_id,$russia_result->table_name,'destination_country');
+
                         ?>
                         <tr>
-                            <td><?php echo $russia_result->id; ?></td>
-                            <td><span class="status <?php echo $class; ?>"><?php echo $final_status; ?></span></td>
+                            <td><?php echo $russia_result->ID; ?></td>
+                            <td><span class="status <?php echo $class; ?>"><?php echo $russia_result->final_status; ?></span></td>
                             <td><?php echo $russia_result->country; ?></td>
-                            <td><?php echo $russia_result->date_created; ?></td>
+                            <td><?php echo $russia_result->created_date; ?></td>
                             <td><?php echo $russia_result->purpose; ?></td>
                             <td><?php echo $russia_result->duration; ?></td>
                             <td><?php echo $russia_result->arrival_date; ?></td>
-                            <td><a href="<?php echo site_url('m-visa-order-details/?fid=').$russia_result->form_id.'&dest='.$destination_country; ?>" class="view">View<i class="fa fa-eye" aria-hidden="true"></i></a></td>
+                            <td><a href="<?php echo site_url('m-visa-order-details/?fid=').$russia_result->ID.'&dest='.$russia_result->destination_country; ?>" class="view">View<i class="fa fa-eye" aria-hidden="true"></i></a></td>
                         </tr>
                     <?php } } ?>
                 </tbody>

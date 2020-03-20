@@ -115,7 +115,7 @@ $entries = [
 	],
 	'multiple-entry' => [
 		'label' => 'Multiple Entry',
-		'price' => 230.65
+		'price' => 320.65
 	]
 ];
 get_header();
@@ -151,7 +151,9 @@ get_header();
 			<form method="post" class="visa_form_submit" enctype="multipart/form-data">
 				<div id="visa_travel-information" class="form_seprationSection">
 					<h3><?php echo __( 'Travel details', 'visachild' ); ?></h3>
-
+					<div class="form-group row">
+						<input type="hidden" class="form-control" value="<?php if ( defined( 'ICL_LANGUAGE_CODE' ) ) { echo ICL_LANGUAGE_CODE; }?>" name="current_lang" id="current_lang" readonly="true" hidden>
+					</div>
 					<div class="form-group row">
 						<label for="destination_country" class="vc_col-md-3 col-form-label"><?php echo __( 'Destination', 'visachild' ); ?></label>
 						<div class="vc_col-md-9">
@@ -1019,9 +1021,9 @@ get_header();
 									</div>
 
 									<div class="form-group row">
-										<label for="traverler_family_birth_date" class="vc_col-md-3 col-form-label"><?php echo __( 'Date of Birth', 'visachild' ); ?></label>
+										<label for="traverler_family_birth_date_<?=$j?>" class="vc_col-md-3 col-form-label"><?php echo __( 'Date of Birth', 'visachild' ); ?></label>
 										<div class="vc_col-md-9">
-											<input type="date" class="form-control" value="<?php echo isset($_POST['traverler']['family_birth_date'][$j]) ? $_POST['traverler']['family_birth_date'][$j] : ''; ?>" name="traverler[family_birth_date][]" id="traverler_family_birth_date" placeholder="<?php echo __( 'Date of Birth', 'visachild' ); ?>">
+											<input type="date" class="form-control" value="<?php echo isset($_POST['traverler']['family_birth_date'][$j]) ? $_POST['traverler']['family_birth_date'][$j] : ''; ?>" name="traverler[family_birth_date][]" id="traverler_family_birth_date_<?=$j?>" placeholder="<?php echo __( 'Date of Birth', 'visachild' ); ?>">
 										</div>
 									</div><!-- form-group -->
 								</div>
@@ -1060,7 +1062,7 @@ get_header();
 										</div>
 									</div><!-- form-group -->
 								</div>
-								<div class="duration-1-8">
+								<div class="duration-1-8 single-entry">
 									<h3><?php echo __( 'Disclaimer', 'visachild' ); ?></h3>
 									<p>
 										<ul>
@@ -1306,14 +1308,13 @@ get_header();
 			var return_method = 0;
 			var old_price = ($('#duration_option').val() ==  '1 t/m 8 days' && $('#number_of_entries').val() == 'single-entry') ? 39.95 : 104.95  ;
 			var price = 0;
-			if($('#duration_option').val() ==  '9 t/m 30 days' && $('#invitation_letter:checked').length){
-				invitation_letter = 55.00;
-				if ($('#purpose').val() == "Business") {
+			if ($('#invitation_letter:checked').length) {
+				if($('#duration_option').val() ==  '9 t/m 30 days'){
+					invitation_letter = 55.00;	
+				}
+				if ($('#purpose').val() == "Business" && $('#number_of_entries').val() != 'single-entry') {
 					invitation_letter = $('#number_of_entries > option:selected').data('price');
 				}
-			}
-			else {
-				invitation_letter = 0;
 			}
 			shipping_method = $('#shipping_method'). children("option:selected").data('price');
 			// return_method = $('#return_method'). children("option:selected").data('price');
