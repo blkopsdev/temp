@@ -57,7 +57,7 @@ $table = $wpdb->prefix."russia_visa_form_new";
 						</ul>
 					</div>
 					<div class="progress-bar">
-						<a href="/python?fid=<?php echo $_GET['fid'] ?>&dest=<?php echo $_GET['dest'] ?>" id="progress-visa">Progress Visa</a>
+						<a href="/python?fid=<?php echo $_GET['fid'] ?>&dest=<?php echo $_GET['dest'] ?>" id="progress-visa" target="_blank">Progress Visa</a>
 					</div>
 					<div class="visa_comments">
 						<?php if(isset($_GET['edit_visa']) && $_GET['edit_visa'] == 'yes'){ ?>
