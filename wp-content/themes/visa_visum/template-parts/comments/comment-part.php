@@ -10,12 +10,10 @@
 
   $main_table = $wpdb->prefix.$visa_destination.'_comments';
   
-  $sql = "select * from ".$main_table." where ".$visa_destination."_ID = ".$visa_id." order by created_at";
+  $sql = "select * from ".$main_table." where uid = ".$visa_id." order by created_at";
 
 	$main_results = $wpdb->get_results($sql,ARRAY_A);
 	$wpdb->flush();
-  
-  
 ?>
 
 
